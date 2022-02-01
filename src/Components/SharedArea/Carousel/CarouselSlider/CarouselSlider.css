@@ -1,0 +1,9 @@
+.CarouselSlider {
+	width: 30%;
+    aspect-ratio: 1;
+}
+
+.CarouselSlider img {
+    width: 100%;
+    height: 100%;
+}

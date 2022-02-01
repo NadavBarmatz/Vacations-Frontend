@@ -1,0 +1,36 @@
+.Carousel {
+	width: 60%;
+	height: 100%;
+	/* background-color: blue; */
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+}
+
+.Carousel .Prev, .Carousel .Next {
+	cursor: pointer;
+	color: var(--clr000);
+	position: absolute;
+	top: 50%;
+	font-size: 2em;
+	padding: 2%;
+	/* margin: 2%; */
+	transform: translateY(-55%);
+	transition: 0.4s ease;
+	
+}
+
+.Carousel .Prev:hover, .Carousel .Next:hover {
+	background-color: hsla(0, 0%, 0%, 0.8);
+}
+
+.Carousel .Prev {
+	left: 0;
+	border-radius: 0 2vh 2vh 0;
+}
+
+.Carousel .Next {
+	right: 0;
+	border-radius: 2vh 0 0 2vh;
+}

@@ -1,0 +1,53 @@
+.Navbar {
+    padding: 1%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.Scrolled {
+    background-color: hsla(0, 0%, 0%, 0.4);
+}
+
+.Navbar .Logo {
+    width: 3%;
+}
+
+.Navbar .Logo > img {
+    width: 100%;
+}
+
+.Navbar .Links {
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.Navbar a {
+    color: var(--clr000);
+}
+
+.Navbar .Search {
+    position: absolute;
+    right: 25%;
+}
+
+.Navbar .InputBox {
+    width: 100%;
+    height: 50%;
+    background-color: var(--clr000);
+    border-radius: 25vh;
+}
+
+.Navbar .AuthMenu {
+    position: absolute;
+    right: 6%;
+}
+
+.Navbar .AuthIcon {
+    position: absolute;
+    right: 2%;
+    cursor: pointer;
+}
+
+

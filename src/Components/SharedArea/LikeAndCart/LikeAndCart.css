@@ -1,0 +1,8 @@
+.LikeAndCart svg {
+	margin: 0 5px;
+    cursor: pointer;
+}
+
+.LikeAndCart path {
+    cursor: pointer;
+}

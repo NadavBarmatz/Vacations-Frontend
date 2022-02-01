@@ -1,0 +1,27 @@
+.Header {
+	height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    background-image: url("../../../Assets/Images/Header/Header.jpg");
+    background-color: hsl(0, 0%, 70%);
+    background-blend-mode: multiply;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 60%;
+    display: grid;
+    place-content: center;
+}
+
+.Header > h1 {
+    color: var(--clr000);
+}
+
+.Header  .InputBox {
+    width: 50%;
+    transform: translateX(45%);
+    background-color: var(--clr000);
+    border-radius: 25vh;
+    display: flex;
+}

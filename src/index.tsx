@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import Layout from './Components/LayoutArea/Layout/Layout';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import interceptorsService from './Services/interceptorsService';
+
+interceptorsService.createInterceptors();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,0 +1,21 @@
+.Footer {
+	display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.Footer .FooterLogo {
+    width: 3%;
+}
+
+.FooterLogo img {
+    width: 100%;
+}
+
+.Footer .Links {
+    width: 100%;
+}
+
+.Footer a {
+    margin: 3%;
+}

@@ -1,0 +1,4 @@
+.VacationsList {
+	display: flex;
+    flex-wrap: wrap;
+}
