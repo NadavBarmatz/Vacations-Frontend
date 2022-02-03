@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import VacationModel from "../../../../Models/VacationModel";
 import config from "../../../../Utils/Config";
 import LikeAndCart from "../../../SharedArea/LikeAndCart/LikeAndCart";
@@ -10,7 +11,9 @@ interface CarouselItemProps {
 function CarouselItem(props: CarouselItemProps): JSX.Element {
     return (
         <div className="CarouselItem">
-			<img src={config.urls.images + props?.vacation?.imageName} />
+            <NavLink to={"/vacation/" + props.vacation.vacationId}>
+    			<img src={config.urls.images + props?.vacation?.imageName} />
+            </NavLink>
             <div className="Description">
                 <div className="Country">
                     <h3>{props?.vacation?.country}</h3>
