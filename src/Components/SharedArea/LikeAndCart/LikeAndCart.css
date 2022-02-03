@@ -1,3 +1,7 @@
+.LikeAndCart {
+    box-sizing: border-box;
+}
+
 .LikeAndCart svg {
 	margin: 0 5px;
     cursor: pointer;

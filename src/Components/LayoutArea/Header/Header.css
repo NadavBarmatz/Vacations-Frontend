@@ -9,7 +9,7 @@
     background-blend-mode: multiply;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center 60%;
+    background-position: center bottom;
     display: grid;
     place-content: center;
 }

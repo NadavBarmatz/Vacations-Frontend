@@ -1,8 +1,49 @@
 .VacationCard {
-	width: 30%;
-    
+	width: 80%;
+    margin: 3% 0 3% 10%;
+    display: flex;
+    gap: 5%;
+}
+
+.VacationCard .Image {
+    flex-shrink: 1;
+    width: 45%;
+}
+
+.VacationCard h2 > span {
+    font-size: 0.6em;
 }
 
 .VacationCard img {
     width: 100%;
+    aspect-ratio: 1.2;
+}
+
+.VacationCard .Description {
+    flex-shrink: 1;
+    position: relative;
+    width: 45%;
+    text-align: left;
+}
+
+.VacationCard .Time {
+    display: flex;
+    flex-wrap: wrap;
+    font-weight: 600;
+    font-size: 1.3em;
+}
+
+.VacationCard .Time > div {
+    display: flex;
+    align-items: center;
+    width: 40%;
+}
+
+.VacationCard .Time > div > p {
+    margin: 0;
+}
+
+.Description > .LikeAndCart {
+    position: absolute;
+    bottom: 0;
 }
