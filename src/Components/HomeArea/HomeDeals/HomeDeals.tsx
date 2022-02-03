@@ -1,4 +1,4 @@
-import ResponsiveCarousel from "../ResponsiveCarousel/ResponsiveCarousel";
+import ResponsiveCarousel from "./ResponsiveCarousel/ResponsiveCarousel";
 import "./HomeDeals.css";
 
 function HomeDeals(): JSX.Element {

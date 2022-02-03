@@ -1,6 +1,6 @@
-import VacationModel from "../../../Models/VacationModel";
-import config from "../../../Utils/Config";
-import LikeAndCart from "../../SharedArea/LikeAndCart/LikeAndCart";
+import VacationModel from "../../../../Models/VacationModel";
+import config from "../../../../Utils/Config";
+import LikeAndCart from "../../../SharedArea/LikeAndCart/LikeAndCart";
 import "./CarouselItem.css";
 
 interface CarouselItemProps {

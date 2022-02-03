@@ -1,5 +1,5 @@
 .Home {
-	height: 150vh;
+	height: 170vh;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
 }

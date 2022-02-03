@@ -1,0 +1,16 @@
+.ContactUs form {
+	width: 45%;
+    margin: auto;
+    padding: 5%;
+    border: 1px solid var(--clr400);
+}
+
+.ContactUs .TextBox {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 10px 0;
+}
+
+.ContactUs form span {
+    color: red;
+}

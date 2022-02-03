@@ -1,6 +1,7 @@
 .Layout {
 	display: grid;
-    grid-template-rows: 5vh 80vh 150vh 10vh;
+    grid-template-rows: 5vh 80vh 170vh 10vh;
+    position: relative;
 }
 
 .Layout > nav {
@@ -16,7 +17,9 @@
     top: -5vh;
 }
 
-
+.Layout > section {
+    grid-column: span 1;
+}
 
 .Layout > footer {
     padding: 2%;
