@@ -1,6 +1,6 @@
 .Layout {
 	display: grid;
-    grid-template-rows: 5vh 80vh 170vh 10vh;
+    grid-template-rows: 5vh 80vh min-content 10vh;
     position: relative;
 }
 
