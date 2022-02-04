@@ -22,7 +22,7 @@ function CarouselItem(props: CarouselItemProps): JSX.Element {
                     <span>${props?.vacation?.price}</span>
                 </div>
                 <div className="Icons">
-                    <LikeAndCart />
+                    <LikeAndCart vacationId={props.vacation?.vacationId} />
                 </div>
             </div>
         </div>
