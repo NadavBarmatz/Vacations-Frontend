@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import VacationModel from "../../../../Models/VacationModel";
+import { userLikesStore } from "../../../../Redux/Store";
 import config from "../../../../Utils/Config";
 import LikeAndCart from "../../../SharedArea/LikeAndCart/LikeAndCart";
 import "./CarouselItem.css";
@@ -9,9 +11,19 @@ interface CarouselItemProps {
 }
 
 function CarouselItem(props: CarouselItemProps): JSX.Element {
+
+    // useEffect(() => {
+    //     const userLikesFromRedux = userLikesStore.getState().userLikes;
+    //     if(!userLikesFromRedux) {
+
+    //     }
+    //     console.log(userLikesFromRedux);
+    // }, [])
+
     return (
         <div className="CarouselItem">
             <NavLink to={"/vacation/" + props.vacation.vacationId}>
+                <span>Total Likes: {props.vacation.likes}</span>
     			<img src={config.urls.images + props?.vacation?.imageName} />
             </NavLink>
             <div className="Description">

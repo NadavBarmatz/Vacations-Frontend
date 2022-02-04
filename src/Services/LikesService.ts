@@ -14,6 +14,12 @@ class LikesService {
         await axios.delete(config.urls.dislike + id);
     }
 
+    public async getUserLikes(): Promise<LikeModel[]> {
+        const response = await axios.get<LikeModel[]>(config.urls.userLikes);
+        const userLikes = response.data;
+        return userLikes;
+    }
+
 }
 
 const likesService = new LikesService();

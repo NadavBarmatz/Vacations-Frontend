@@ -6,6 +6,10 @@
     color: var(--clr600);
 }
 
+.CarouselItem > a > span {
+    color: var(--clr600);
+}
+
 .CarouselItem img {
     width: 100%;
     aspect-ratio: 1.3;

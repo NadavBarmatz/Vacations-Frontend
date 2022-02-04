@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import VacationModel from "../../../Models/VacationModel";
-import { vacationsStore } from "../../../Redux/Store";
+import { userLikesStore, vacationsStore } from "../../../Redux/Store";
+import { getAllUserLikes } from "../../../Redux/UserLikesState";
 import { getVacationsAction } from "../../../Redux/VacationsState";
+import authService from "../../../Services/AuthService";
+import likesService from "../../../Services/LikesService";
 import vacationsService from "../../../Services/VacationsService";
 import HomeDeals from "../HomeDeals/HomeDeals";
 import MorePlacesToGo from "../MorePlacesToGo/MorePlacesToGo";
@@ -19,6 +22,15 @@ function Home(): JSX.Element {
                 const vacations = await vacationsService.getAllVacations();
                 vacationsStore.dispatch(getVacationsAction(vacations));
                 setVacations(vacations);
+
+
+                if(authService.isLoggedIn()){
+                    const userLikes = userLikesStore.getState().userLikes;
+                    if(!userLikes) {
+                        const userLikes = await likesService.getUserLikes();
+                        userLikesStore.dispatch(getAllUserLikes(userLikes));
+                    }
+                }
             }
             else{
                 setVacations(vacationsFromRedux);

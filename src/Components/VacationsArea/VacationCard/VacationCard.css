@@ -43,6 +43,10 @@
     margin: 0;
 }
 
+.Description .LikeSection {
+    display: flex;
+}
+
 .Description > .LikeAndCart {
     position: absolute;
     bottom: 0;
