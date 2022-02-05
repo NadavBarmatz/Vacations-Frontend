@@ -40,7 +40,7 @@ function AddVacation(): JSX.Element {
         try{
             await vacationsService.addVacation(vacation);
             alert("Vacation has been added by admin");
-            navigate("/home");
+            navigate("/deals");
         }
         catch(err: any) {
             alert(err.message);

@@ -4,22 +4,42 @@ import config from "../../../Utils/Config";
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import "./VacationCard.css";
+import UserModel from "../../../Models/UserModel";
+import Role from "../../../Models/Role";
+import { Button, ButtonGroup } from "@mui/material";
+import vacationsService from "../../../Services/VacationsService";
+import { vacationsStore } from "../../../Redux/Store";
+import { deleteVacationAction } from "../../../Redux/VacationsState";
 
 interface VacationCardProps {
     vacation: VacationModel;
+    user: UserModel;
 }
 
 function VacationCard(props: VacationCardProps): JSX.Element {
+
+    async function handleDelete(vacationId: number) {
+        try{
+            await vacationsService.deleteVacation(vacationId);
+            vacationsStore.dispatch(deleteVacationAction(vacationId));
+            alert("Vacation has been deleted")
+        }
+        catch(err: any) {
+            alert(err.message)
+        }
+    }
 
     return (
         <div className="VacationCard">
             <div className="Image">
                 <img src={config.urls.images + props.vacation?.imageName} />
             </div>
-            <div className="Description">
+            <div className="Info">
                 <h2>{props.vacation?.country}<span> ${props.vacation?.price.toFixed(2)}</span></h2>
                 <h3>{props.vacation?.city}</h3>
-                <p>{props.vacation?.description}</p>
+                <div className="Description">
+                    <p>{props.vacation?.description}</p>
+                </div>
                 <div className="Time">
                     <div>
                         <EventNoteIcon />
@@ -39,10 +59,16 @@ function VacationCard(props: VacationCardProps): JSX.Element {
                     </div>
                 </div>
                 <div className="LikeSection">
-                    <span>Total Likes: {props.vacation.likes}</span>
+                    <span>Total Likes: {props.vacation?.likes}</span>
                     <LikeAndCart vacationId={props.vacation?.vacationId} />
                 </div>
             </div>
+            {props.user?.role === Role.Admin && 
+                <ButtonGroup>
+                    <Button>UPDATE</Button>
+                    <Button color="error" onClick={() => {handleDelete(props.vacation?.vacationId)}}>DELETE</Button>
+                </ButtonGroup>
+            }
         </div>
     );
 }
