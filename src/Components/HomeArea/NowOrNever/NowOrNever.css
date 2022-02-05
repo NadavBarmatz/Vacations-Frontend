@@ -1,3 +1,10 @@
 .NowOrNever {
-	height: 100%;
+	height: fit-content;
+	place-content: middle;
+	padding: 1%;
+}
+
+.NowOrNever .VacationCard {
+	width: 60%;
+	margin: auto;
 }
