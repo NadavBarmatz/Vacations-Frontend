@@ -19,7 +19,7 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
     const [isLiked, setIsLiked] = useState<boolean>(false);
     const [userLikes, setUserLikes] = useState<LikeModel[]>([]);
 
-    let unSub: Unsubscribe
+    let unSub: Unsubscribe;
 
     useEffect(() => {
         if(authService.isLoggedIn()){
@@ -33,8 +33,11 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
             }
         }
 
-        return() =>{unSub()}
-    }, [userLikes])
+        return() => {
+        if(authService.isLoggedIn()){
+            unSub();
+        }}
+    }, [userLikes]);
 
     
     const likeIt = async () => {

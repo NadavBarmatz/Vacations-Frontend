@@ -1,8 +1,15 @@
 import axios from "axios";
+import DestinationModel from "../Models/DestinationModel";
 import VacationModel from "../Models/VacationModel";
 import config from "../Utils/Config";
 
 class VacationsService {
+
+    public async getAllDestinations(): Promise<DestinationModel[]> {
+        const response = await axios.get<DestinationModel[]>(config.urls.destinations);
+        const destinations = response.data;
+        return destinations;
+    }
 
     public async getAllVacations(): Promise<VacationModel[]> {        
         const response = await axios.get<VacationModel[]>(config.urls.vacations);
@@ -17,19 +24,40 @@ class VacationsService {
     }
 
     public async addVacation(vacation: VacationModel): Promise<VacationModel> {
-        const response = await axios.post(config.urls.vacations, vacation);
+        const myFormData = new FormData();
+        myFormData.append("destinationId", vacation.destinationId.toString());
+        myFormData.append("description", vacation.description);
+        myFormData.append("start", vacation.start);
+        myFormData.append("end", vacation.end);
+        myFormData.append("price", vacation.price.toString());
+        myFormData.append("image", vacation.image.item(0));
+        const response = await axios.post(config.urls.vacations, myFormData);
         const addedVacation = response.data;
         return addedVacation;
     }
 
     public async fullUpdateVacation(vacation: VacationModel): Promise<VacationModel> {
-        const response = await axios.put(config.urls.vacations + vacation.vacationId, vacation);
+        const myFormData = new FormData();
+        myFormData.append("destinationId", vacation.destinationId.toString());
+        myFormData.append("description", vacation.description);
+        myFormData.append("start", vacation.start);
+        myFormData.append("end", vacation.end);
+        myFormData.append("price", vacation.price.toString());
+        myFormData.append("image", vacation.image.item(0));
+        const response = await axios.put(config.urls.vacations + vacation.vacationId, myFormData);
         const updatedVacation = response.data;
         return updatedVacation;
     }
 
     public async PartialUpdateVacation(vacation: VacationModel): Promise<VacationModel> {
-        const response = await axios.patch(config.urls.vacations + vacation.vacationId, vacation);
+        const myFormData = new FormData();
+        myFormData.append("destinationId", vacation.destinationId.toString());
+        myFormData.append("description", vacation.description);
+        myFormData.append("start", vacation.start);
+        myFormData.append("end", vacation.end);
+        myFormData.append("price", vacation.price.toString());
+        myFormData.append("image", vacation.image.item(0));
+        const response = await axios.patch(config.urls.vacations + vacation.vacationId, myFormData);
         const updatedVacation = response.data;
         return updatedVacation;
     }

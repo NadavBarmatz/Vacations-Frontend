@@ -2,6 +2,7 @@ import { Thermostat } from "@mui/icons-material";
 import { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { Unsubscribe } from "redux";
+import Role from "../../../Models/Role";
 import UserModel from "../../../Models/UserModel";
 import { authStore } from "../../../Redux/Store";
 import "./AuthMenu.css";
@@ -48,7 +49,13 @@ class AuthMenu extends Component<{}, AuthMenuState> {
                         <NavLink to="logout">Logout</NavLink>
                     </>
                 }
-				
+
+                {this.state?.user?.role === Role.Admin &&
+                    <>
+                    <br />
+                        <NavLink to="add-vacation">Add Vacation</NavLink>
+                    </>
+                }				
             </div>
         );
     }
