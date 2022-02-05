@@ -38,7 +38,10 @@ function VacationCard(props: VacationCardProps): JSX.Element {
                         <p>{new Date(props.vacation?.end).toLocaleString().split(",")[1]}</p>
                     </div>
                 </div>
-                <LikeAndCart vacationId={props.vacation?.vacationId} />
+                <div className="LikeSection">
+                    <span>Total Likes: {props.vacation.likes}</span>
+                    <LikeAndCart vacationId={props.vacation?.vacationId} />
+                </div>
             </div>
         </div>
     );

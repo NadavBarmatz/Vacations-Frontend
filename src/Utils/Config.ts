@@ -6,7 +6,8 @@ class Config{
         login: "",
         userLikes: "",
         like: "",
-        dislike: ""
+        dislike: "",
+        socketServer: ""
     }
 
     public constructor(baseUrl: string){
@@ -17,7 +18,8 @@ class Config{
             login: baseUrl + "auth/login/",
             userLikes: baseUrl + "likes/user-likes/",
             like: baseUrl + "likes/like/",
-            dislike: baseUrl + "likes/dislike/"
+            dislike: baseUrl + "likes/dislike/",
+            socketServer: "http://localhost:3001"
         };
     };
 }

@@ -23,7 +23,7 @@ export enum AuthActionType {
 }
 
 export interface AuthAction {
-    type: AuthActionType,
+    type: AuthActionType;
     payload?: string; // Token
 }
 
