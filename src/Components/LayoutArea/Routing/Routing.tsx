@@ -6,6 +6,7 @@ import ContactUs from "../../ContactArea/ContactUs/ContactUs";
 import Home from "../../HomeArea/Home/Home";
 import AddVacation from "../../VacationsArea/AddVacation/AddVacation";
 import VacationDetails from "../../VacationsArea/VacationDetails/VacationDetails";
+import VacationsList from "../../VacationsArea/VacationsList/VacationsList";
 
 function Routing(): JSX.Element {
     return (
@@ -15,6 +16,7 @@ function Routing(): JSX.Element {
                 <Route path="/home" element={<Home />} />
                 <Route path="/vacation/:id" element={<VacationDetails />} />
                 <Route path="/contact" element={<ContactUs />} />
+                <Route path="/deals" element={<VacationsList />} />
 
                 {/* Auth pages */}
                 <Route path="/register" element={<Register />} />
