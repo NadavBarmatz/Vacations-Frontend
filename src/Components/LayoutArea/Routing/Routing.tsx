@@ -4,20 +4,27 @@ import Logout from "../../AuthArea/Logout/Logout";
 import Register from "../../AuthArea/Register/Register";
 import ContactUs from "../../ContactArea/ContactUs/ContactUs";
 import Home from "../../HomeArea/Home/Home";
+import AddVacation from "../../VacationsArea/AddVacation/AddVacation";
 import VacationDetails from "../../VacationsArea/VacationDetails/VacationDetails";
 
 function Routing(): JSX.Element {
     return (
         <>
 			<Routes>
+                {/* General pages  */}
                 <Route path="/home" element={<Home />} />
                 <Route path="/vacation/:id" element={<VacationDetails />} />
                 <Route path="/contact" element={<ContactUs />} />
 
+                {/* Auth pages */}
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/logout" element={<Logout />} />
 
+                {/* Admin pages */}
+                <Route path="/add-vacation" element={<AddVacation />} />
+
+                {/* Default page */}
                 <Route path="/*" element={<Navigate to="/home" />} />
             </Routes>
         </>

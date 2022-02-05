@@ -17,7 +17,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
                 <img src={config.urls.images + props.vacation?.imageName} />
             </div>
             <div className="Description">
-                <h2>{props.vacation?.country}<span> ${props.vacation?.price}</span></h2>
+                <h2>{props.vacation?.country}<span> ${props.vacation?.price.toFixed(2)}</span></h2>
                 <h3>{props.vacation?.city}</h3>
                 <p>{props.vacation?.description}</p>
                 <div className="Time">
