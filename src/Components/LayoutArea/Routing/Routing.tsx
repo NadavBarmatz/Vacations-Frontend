@@ -5,6 +5,7 @@ import Register from "../../AuthArea/Register/Register";
 import ContactUs from "../../ContactArea/ContactUs/ContactUs";
 import Home from "../../HomeArea/Home/Home";
 import AddVacation from "../../VacationsArea/AddVacation/AddVacation";
+import UpdateVacation from "../../VacationsArea/UpdateVacation/UpdateVacation";
 import VacationDetails from "../../VacationsArea/VacationDetails/VacationDetails";
 import VacationsList from "../../VacationsArea/VacationsList/VacationsList";
 
@@ -25,6 +26,7 @@ function Routing(): JSX.Element {
 
                 {/* Admin pages */}
                 <Route path="/add-vacation" element={<AddVacation />} />
+                <Route path="/update-vacation/:id" element={<UpdateVacation />} />
 
                 {/* Default page */}
                 <Route path="/*" element={<Navigate to="/home" />} />
