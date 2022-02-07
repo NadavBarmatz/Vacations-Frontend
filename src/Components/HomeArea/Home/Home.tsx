@@ -17,14 +17,14 @@ function Home(): JSX.Element {
     const [vacations, setVacations] = useState<VacationModel[]>([]);
 
     let unSub: Unsubscribe;
-    let vacationsArr: VacationModel[];
+    let vacationsArr: VacationModel[] = [];
 
     useEffect((async () => {
 
         unSub = vacationsStore.subscribe(() => {
             vacationsArr = vacationsStore.getState().vacations;
         })
-        if(!vacationsArr){
+        if(vacationsArr.length === 0){
             vacationsArr = await vacationsService.getAllVacations();
             vacationsStore.dispatch(getVacationsAction(vacationsArr))
         }
@@ -39,7 +39,7 @@ function Home(): JSX.Element {
 
         return () => {unSub();}
 
-    }) as any, [vacationsArr])
+    }) as any, [])
 
     
     return (
