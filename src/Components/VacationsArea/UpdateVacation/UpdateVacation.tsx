@@ -1,13 +1,16 @@
 import { Button, ButtonGroup, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DestinationModel from "../../../Models/DestinationModel";
 import VacationModel from "../../../Models/VacationModel";
+import { vacationsStore } from "../../../Redux/Store";
 import vacationsService from "../../../Services/VacationsService";
-import "./AddVacation.css";
+import "./UpdateVacation.css";
 
-function AddVacation(): JSX.Element {
+function UpdateVacation(): JSX.Element {
+
+    const id = +useParams().id;
 
     // Used to set select options and value:
     const [destinations, setDestinations] = useState<DestinationModel[]>([]);
@@ -18,14 +21,14 @@ function AddVacation(): JSX.Element {
 
     const {register, handleSubmit, reset, formState} = useForm<VacationModel>();
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
 
     useEffect((async () => {
         try {
             // Get destination from srvr:
             const destinationsArr = await vacationsService.getAllDestinations();
             // Sort by alphabet order:
-            destinationsArr.sort((a, b) => a.destinationCountry < b.destinationCountry ? -1 : 1)
+            destinationsArr.sort((a, b) => a.destinationCountry < b.destinationCountry ? -1 : 1);
             setDestinations(destinationsArr);
         }
         catch(err: any) {
@@ -35,18 +38,6 @@ function AddVacation(): JSX.Element {
 
     // Minimum value for dateTime inputs
     const dateTimeMinValue = (new Date().toISOString().split(".")[0]).substring(0, 16);
-
-    const submit = async (vacation: VacationModel) => {
-        try{
-            await vacationsService.addVacation(vacation);
-            alert("Vacation has been added by admin");
-            navigate("/deals");
-        }
-        catch(err: any) {
-            alert(err.message);
-        }
-
-    }
 
     const handleSelectChange = (e: SyntheticEvent) => {
         setSelectValue((e.target as HTMLOptionElement).value);
@@ -58,13 +49,25 @@ function AddVacation(): JSX.Element {
         setStartTime(time);        
     }
 
+    async function submit(vacation: VacationModel) {
+        try{
+            vacation.vacationId = id;
+            await vacationsService.fullUpdateVacation(vacation);
+            alert("Vacation updated by Admin");
+            navigate("/deals");
+        }
+        catch(err: any) {
+            alert(err.message);
+        }
+    }
+
     return (
-        <div className="AddVacation">
-            
-            <h2>Add New Vacation</h2>
+        <div className="UpdateVacation">
+
+            <h2>Update Vacation</h2>
             <form onSubmit={handleSubmit(submit)}>
 
-                <FormControl fullWidth>
+            <FormControl fullWidth>
                     <InputLabel>Destination</InputLabel>
                     <Select label="Destination" defaultValue={selectValue} onChange={handleSelectChange} {...register("destinationId", {
                         required: {value: true, message: "Filed is required"},
@@ -105,7 +108,7 @@ function AddVacation(): JSX.Element {
                 <span>{formState.errors.image?.message}</span>
 
                 <ButtonGroup className="TextBox">
-                    <Button type="submit" fullWidth color="success">ADD</Button>
+                    <Button type="submit" fullWidth color="success">UPDATE</Button>
                     <Button fullWidth color="error" onClick={()=>{
                         reset({"description": null, "start": null, "end": null, "price": null, "image": null})
                     }}>CLEAR</Button>
@@ -116,4 +119,4 @@ function AddVacation(): JSX.Element {
     );
 }
 
-export default AddVacation;
+export default UpdateVacation;

@@ -8,6 +8,7 @@ import CarouselItem from "../CarouselItem/CarouselItem";
 import config from "../../../../Utils/Config";
 import Loading from "../../../SharedArea/Loading/Loading";
 import { vacationsStore } from "../../../../Redux/Store";
+import { Unsubscribe } from "redux";
 
 function ResponsiveCarousel(): JSX.Element {
 
@@ -33,21 +34,15 @@ function ResponsiveCarousel(): JSX.Element {
 
   const [vacations, setVacations] = useState<VacationModel[]>([]);
 
-  useEffect((async () => {
-    try{
-      const vacationsFromRedux = vacationsStore.getState().vacations;
-      if(!vacationsFromRedux){
-        const vacations = await vacationsService.getAllVacations();
-        setVacations(vacations);
-      }
-      else{
-        setVacations(vacationsFromRedux);
-      }
-    }
-    catch(err: any) {
-      alert(err.message);
-    }
-  }) as any, [])
+  let unSub: Unsubscribe;
+  let vacationsArr: VacationModel[];
+
+  useEffect(() => {
+    unSub = vacationsStore.subscribe(() => {
+      vacationsArr = vacationsStore.getState().vacations;
+      setVacations(vacationsArr);
+    })
+  }, [vacationsArr])
     
   return (
     <div className="ResponsiveCarousel">

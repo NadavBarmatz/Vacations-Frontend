@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
+import { Unsubscribe } from "redux";
 import VacationModel from "../../../Models/VacationModel";
-import { authStore } from "../../../Redux/Store";
+import { authStore, vacationsStore } from "../../../Redux/Store";
 import Loading from "../../SharedArea/Loading/Loading";
 import VacationCard from "../../VacationsArea/VacationCard/VacationCard";
 import "./NowOrNever.css";
@@ -9,7 +11,7 @@ interface NowOrNeverProps {
 }
 
 function NowOrNever(props: NowOrNeverProps): JSX.Element {
-    
+
     const user = authStore.getState().user;
     
     const randomIndex = Math.floor(Math.random() * props.vacations.length);

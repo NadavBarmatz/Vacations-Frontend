@@ -9,7 +9,9 @@ export enum VacationsActionType {
     GetVacations = "GetVacations",
     AddVacation = "AddVacation",
     UpdateVacation = "UpdateVacation",
-    DeleteVacation = "DeleteVacation"
+    DeleteVacation = "DeleteVacation",
+    // IncreaseVacationLikesNumber = "IncreaseVacationLikesNumber",
+    // DecreaseVacationLikesNumber = "DecreaseVacationLikesNumber",
 }
 
 export interface VacationsAction {
@@ -33,6 +35,14 @@ export function deleteVacationAction(idToDelete: number): VacationsAction {
     return { type: VacationsActionType.DeleteVacation, payload: idToDelete };
 }
 
+// export function increaseVacationLikesNumberAction(vacationId: number): VacationsAction {
+//     return {type: VacationsActionType.IncreaseVacationLikesNumber, payload: vacationId};
+// }
+
+// export function decreaseVacationLikesNumberAction(vacationId: number): VacationsAction {
+//     return {type: VacationsActionType.DecreaseVacationLikesNumber, payload: vacationId};
+// }
+
 export function vacationsReducer(currentVacationsState: VacationsState = new VacationsState(), action: VacationsAction): VacationsState {
     const newVacationsState = {...currentVacationsState};
 
@@ -55,6 +65,14 @@ export function vacationsReducer(currentVacationsState: VacationsState = new Vac
             const indexToDelete = newVacationsState.vacations.findIndex(v => v.vacationId === action.payload);
             newVacationsState.vacations.splice(indexToDelete, 1);
             break;
+
+        // case VacationsActionType.IncreaseVacationLikesNumber:
+        //     newVacationsState.vacations[action.payload].vacationId++; // Payload indicates to vacationId
+        //     break;
+
+        // case VacationsActionType.DecreaseVacationLikesNumber:
+        //     newVacationsState.vacations[action.payload].vacationId--; // Payload indicates to vacationId
+        //     break;     
 
     }
 

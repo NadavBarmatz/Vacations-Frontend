@@ -17,34 +17,56 @@ interface LikeAndCartProps {
 function LikeAndCart(props: LikeAndCartProps): JSX.Element {
     
     const [isLiked, setIsLiked] = useState<boolean>(false);
-    const [userLikes, setUserLikes] = useState<LikeModel[]>([]);
 
     let unSub: Unsubscribe;
 
-    useEffect(() => {
+    useEffect(( async () => {
         if(authService.isLoggedIn()){
-            unSub = userLikesStore.subscribe(()=>{
-                const userLikesArr = userLikesStore.getState().userLikes;
-                setUserLikes(userLikesArr);
+            
+            let userLikesArr: LikeModel[];
+            unSub = userLikesStore.subscribe(() => {
+                userLikesArr = userLikesStore.getState().userLikes;
             })
-            const isCurrentLike = userLikes.find(l => l.vacationId === props.vacationId);
-            if(isCurrentLike) {
-                setIsLiked(true);
+
+            if(!userLikesArr) {
+                userLikesArr = await likesService.getUserLikes();
+                userLikesStore.dispatch(getAllUserLikes(userLikesArr));
+            }
+
+            const isCurrentLike = userLikesArr.find(l => l.vacationId === props.vacationId);
+            if(isCurrentLike) setIsLiked(true);
+
+            return() => {
+                if(authService.isLoggedIn()){
+                    unSub();
+                }
             }
         }
+    }) as any, [])
 
-        return() => {
-        if(authService.isLoggedIn()){
-            unSub();
-        }}
-    }, [userLikes]);
+    // useEffect(() => {
+    //     if(authService.isLoggedIn()){
+    //         unSub = userLikesStore.subscribe(()=>{
+    //             const userLikesArr = userLikesStore.getState().userLikes;
+    //             setUserLikes(userLikesArr);
+    //         })
+    //         const isCurrentLike = userLikes.find(l => l.vacationId === props.vacationId);
+    //         if(isCurrentLike) {
+    //             setIsLiked(true);
+    //         }
+    //     }
+
+    //     return() => {
+    //     if(authService.isLoggedIn()){
+    //         unSub();
+    //     }}
+    // }, [userLikes]);
 
     
     const likeIt = async () => {
         try {
             // const userToken = localStorage.getItem("token");
             const like = await likesService.likeVacation(props.vacationId);
-            alert("like: " + like);
             setIsLiked(!isLiked);
         }
         catch(err: any) {
@@ -55,7 +77,6 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
     const dislike = async () => {
         try{
             await likesService.dislikeVacation(props.vacationId);
-            alert("dislike")
             setIsLiked(!isLiked);
         }
         catch(err: any) {

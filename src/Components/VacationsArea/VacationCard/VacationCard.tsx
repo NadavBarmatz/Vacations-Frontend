@@ -10,6 +10,7 @@ import { Button, ButtonGroup } from "@mui/material";
 import vacationsService from "../../../Services/VacationsService";
 import { vacationsStore } from "../../../Redux/Store";
 import { deleteVacationAction } from "../../../Redux/VacationsState";
+import { NavLink, useNavigate } from "react-router-dom";
 
 interface VacationCardProps {
     vacation: VacationModel;
@@ -17,6 +18,8 @@ interface VacationCardProps {
 }
 
 function VacationCard(props: VacationCardProps): JSX.Element {
+
+    const navigate = useNavigate();
 
     async function handleDelete(vacationId: number) {
         try{
@@ -65,7 +68,9 @@ function VacationCard(props: VacationCardProps): JSX.Element {
             </div>
             {props.user?.role === Role.Admin && 
                 <ButtonGroup>
-                    <Button>UPDATE</Button>
+                    <NavLink to={"/update-vacation/" + props.vacation?.vacationId}>
+                        <Button>UPDATE</Button>
+                    </NavLink>
                     <Button color="error" onClick={() => {handleDelete(props.vacation?.vacationId)}}>DELETE</Button>
                 </ButtonGroup>
             }

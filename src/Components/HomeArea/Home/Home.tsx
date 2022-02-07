@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Unsubscribe } from "redux";
 import VacationModel from "../../../Models/VacationModel";
 import { userLikesStore, vacationsStore } from "../../../Redux/Store";
 import { getAllUserLikes } from "../../../Redux/UserLikesState";
@@ -13,37 +14,37 @@ import "./Home.css";
 
 function Home(): JSX.Element {
 
-  const [vacations, setVacations] = useState<VacationModel[]>([]);
+    const [vacations, setVacations] = useState<VacationModel[]>([]);
+
+    let unSub: Unsubscribe;
+    let vacationsArr: VacationModel[];
 
     useEffect((async () => {
-        try{
-            const vacationsFromRedux = vacationsStore.getState().vacations;
-            if(!vacationsFromRedux){
-                const vacations = await vacationsService.getAllVacations();
-                vacationsStore.dispatch(getVacationsAction(vacations));
-                setVacations(vacations);
 
-
-                if(authService.isLoggedIn()){
-                    const userLikes = userLikesStore.getState().userLikes;
-                    if(!userLikes) {
-                        const userLikes = await likesService.getUserLikes();
-                        userLikesStore.dispatch(getAllUserLikes(userLikes));
-                    }
-                }
-            }
-            else{
-                setVacations(vacationsFromRedux);
-            }
+        unSub = vacationsStore.subscribe(() => {
+            vacationsArr = vacationsStore.getState().vacations;
+        })
+        if(!vacationsArr){
+            vacationsArr = await vacationsService.getAllVacations();
+            vacationsStore.dispatch(getVacationsAction(vacationsArr))
         }
-        catch(err: any) {
-            alert(err.message);
-        }
-      }) as any, [])
 
+        let userLikes = userLikesStore.getState().userLikes;
+        if(!userLikes) {
+            userLikes = await likesService.getUserLikes();
+            userLikesStore.dispatch(getAllUserLikes(userLikes));
+        }
+
+        setVacations(vacationsArr);
+
+        return () => {unSub();}
+
+    }) as any, [vacationsArr])
+
+    
     return (
         <div className="Home">
-			<section>
+            <section>
                 <HomeDeals />
             </section>
             <section>

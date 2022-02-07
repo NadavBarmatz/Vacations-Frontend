@@ -1,8 +1,10 @@
-import { vacationsStore } from './../Redux/Store';
+import { userLikesStore, vacationsStore } from './../Redux/Store';
 import { Socket, io } from 'socket.io-client';
 import VacationModel from '../Models/VacationModel';
 import config from '../Utils/Config';
 import { addVacationAction, deleteVacationAction, updateVacationAction } from '../Redux/VacationsState';
+import LikeModel from '../Models/LikeModel';
+import { dislikeAction, likeAction } from '../Redux/UserLikesState';
 
 class SocketIoService {
 
@@ -23,6 +25,17 @@ class SocketIoService {
             vacationsStore.dispatch(deleteVacationAction(id));
         });
 
+        // this.socket.on("user-like-vacation", (like: LikeModel) => {
+        //     userLikesStore.dispatch(likeAction(like));
+        // })
+
+        // this.socket.on("user-dislike-vacation", (like: LikeModel) => {
+        //     userLikesStore.dispatch(dislikeAction(like));
+        // })
+
+        // this.socket.on("vacation-likes-update", (vacation: VacationModel) => {
+        //     vacationsStore.dispatch(updateVacationAction(vacation));
+        // });
 
     }
 

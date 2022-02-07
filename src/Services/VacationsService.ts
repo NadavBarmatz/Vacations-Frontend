@@ -52,11 +52,11 @@ class VacationsService {
     public async PartialUpdateVacation(vacation: VacationModel): Promise<VacationModel> {
         const myFormData = new FormData();
         myFormData.append("destinationId", vacation.destinationId.toString());
-        myFormData.append("description", vacation.description);
-        myFormData.append("start", vacation.start);
-        myFormData.append("end", vacation.end);
-        myFormData.append("price", vacation.price.toString());
-        myFormData.append("image", vacation.image.item(0));
+        myFormData.append("description", vacation?.description);
+        myFormData.append("start", vacation?.start);
+        myFormData.append("end", vacation?.end);
+        myFormData.append("price", vacation?.price.toString());
+        myFormData.append("image", vacation?.image.item(0));
         const response = await axios.patch(config.urls.vacations + vacation.vacationId, myFormData);
         const updatedVacation = response.data;
         return updatedVacation;
