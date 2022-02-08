@@ -13,7 +13,9 @@ function Layout(): JSX.Element {
             <header>
                 <Header />
             </header>
-            <Routing />
+            <section>
+                <Routing />
+            </section>
             <footer>
                 <Footer />
             </footer>

@@ -8,6 +8,7 @@ import CarouselItem from "../CarouselItem/CarouselItem";
 import config from "../../../../Utils/Config";
 import Loading from "../../../SharedArea/Loading/Loading";
 import { vacationsStore } from "../../../../Redux/Store";
+import { Unsubscribe } from "redux";
 
 function ResponsiveCarousel(): JSX.Element {
 
@@ -31,32 +32,28 @@ function ResponsiveCarousel(): JSX.Element {
     }
   };
 
-  const [vacations, setVacations] = useState<VacationModel[]>([]);
+  const [vacationsId, setVacationsId] = useState<number[]>([]);
 
-  useEffect((async () => {
-    try{
-      const vacationsFromRedux = vacationsStore.getState().vacations;
-      if(!vacationsFromRedux){
-        const vacations = await vacationsService.getAllVacations();
-        setVacations(vacations);
-      }
-      else{
-        setVacations(vacationsFromRedux);
-      }
-    }
-    catch(err: any) {
-      alert(err.message);
-    }
-  }) as any, [])
+  let unSub: Unsubscribe;
+
+  useEffect(() => {
+    unSub = vacationsStore.subscribe(() => {
+      const vacations = vacationsStore.getState().vacations;
+      const vacationsIdArr = vacations.map(v => v.vacationId);
+      setVacationsId(vacationsIdArr);
+    })
+
+    return () => {unSub();}
+  }, [])
     
   return (
     <div className="ResponsiveCarousel">
       {
-        vacations.length === 0 && <Loading />
+        vacationsId.length === 0 && <Loading />
           ||
         <Carousel infinite={true} responsive={responsive}>
-          {vacations.map(v => <div key={v.vacationId}>
-            <CarouselItem vacation={v} />
+          {vacationsId.map(v => <div key={v}>
+            <CarouselItem vacationId={v} />
           </div>)}
         </Carousel>
       }

@@ -9,7 +9,7 @@ import socketIoService from './Services/SocketIoService';
 
 interceptorsService.createInterceptors();
 
-// socketIoService.connect();
+socketIoService.connect();
 
 ReactDOM.render(
   <React.StrictMode>
