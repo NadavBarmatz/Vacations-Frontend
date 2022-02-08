@@ -20,7 +20,7 @@ function Navbar(): JSX.Element {
     }, []);
 
     return (
-        <div className={scroll > (window.innerHeight / 1.3) ? "Navbar Scrolled" : "Navbar"}>
+        <div className={scroll > (window.innerHeight / 2) ? "Navbar Scrolled" : "Navbar"}>
 			<div className="Logo">
                 <img src={Logo} />
             </div>

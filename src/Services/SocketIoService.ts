@@ -15,6 +15,8 @@ class SocketIoService {
 
         this.socket.on("admin-add-vacation", (vacation: VacationModel) => {
             vacationsStore.dispatch(addVacationAction(vacation));
+            console.log("admin added vacation");
+            
         });
 
         this.socket.on("admin-update-vacation", (vacation: VacationModel) => {
@@ -23,19 +25,21 @@ class SocketIoService {
 
         this.socket.on("admin-delete-vacation", (id: number) => {
             vacationsStore.dispatch(deleteVacationAction(id));
+            console.log("admin deleted vacation");
+
         });
 
-        // this.socket.on("user-like-vacation", (like: LikeModel) => {
-        //     userLikesStore.dispatch(likeAction(like));
-        // })
+        this.socket.on("user-like-vacation", (like: LikeModel) => {
+            userLikesStore.dispatch(likeAction(like));
+        })
 
-        // this.socket.on("user-dislike-vacation", (like: LikeModel) => {
-        //     userLikesStore.dispatch(dislikeAction(like));
-        // })
+        this.socket.on("user-dislike-vacation", (like: LikeModel) => {
+            userLikesStore.dispatch(dislikeAction(like));
+        })
 
-        // this.socket.on("vacation-likes-update", (vacation: VacationModel) => {
-        //     vacationsStore.dispatch(updateVacationAction(vacation));
-        // });
+        this.socket.on("vacation-likes-update", (vacation: VacationModel) => {
+            vacationsStore.dispatch(updateVacationAction(vacation));
+        });
 
     }
 

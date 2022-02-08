@@ -8,7 +8,7 @@ interface MorePlacesToGoProps {
 function MorePlacesToGo(props: MorePlacesToGoProps): JSX.Element {
     return (
         <div className="MorePlacesToGo">
-            <h2>MRE PLACES TO GO</h2>
+            <h2>MORE PLACES TO GO</h2>
             <ResponsiveNameCarousel />
         </div>
     );

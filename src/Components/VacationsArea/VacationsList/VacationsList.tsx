@@ -12,25 +12,22 @@ import "./VacationsList.css";
 function VacationsList(): JSX.Element {
     const [vacations, setVacations] = useState<VacationModel[]>([]);
     const user = authStore.getState().user;
-
-    console.log("vacations");
-    
+    console.log(vacations);
 
     let unSub: Unsubscribe;
-    let vacationsArr: VacationModel[] = [];
 
     useEffect((async () => {
         try{
-            unSub = vacationsStore.subscribe(() => {
-                vacationsArr = vacationsStore.getState().vacations;
-            });
-            if(vacationsArr.length === 0) {
-                vacationsArr = await vacationsService.getAllVacations();
-                vacationsStore.dispatch(getVacationsAction(vacationsArr));
-            } 
-
+            let vacationsArr = await vacationsService.getAllVacations();
+            vacationsStore.dispatch(getVacationsAction(vacationsArr));
             setVacations(vacationsArr);
-            
+
+            unSub = vacationsStore.subscribe(async() => {
+                // vacationsArr = vacationsStore.getState().vacations;
+                vacationsArr = await vacationsService.getAllVacations()                
+                setVacations(vacationsArr);
+            });
+                        
             return() => {unSub();}
         }
         catch(err: any) {

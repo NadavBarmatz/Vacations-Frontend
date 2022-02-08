@@ -4,11 +4,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useEffect, useState } from "react";
 import likesService from "../../../Services/LikesService";
-import { userLikesStore } from "../../../Redux/Store";
-import LikeModel from "../../../Models/LikeModel";
+import { userLikesStore, vacationsStore } from "../../../Redux/Store";
 import { getAllUserLikes } from "../../../Redux/UserLikesState";
 import { Unsubscribe } from "redux";
 import authService from "../../../Services/AuthService";
+import vacationsService from "../../../Services/VacationsService";
+import { updateVacationAction } from "../../../Redux/VacationsState";
 
 interface LikeAndCartProps {
     vacationId: number;
@@ -23,18 +24,16 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
     useEffect(( async () => {
         if(authService.isLoggedIn()){
             
-            let userLikesArr: LikeModel[];
-            unSub = userLikesStore.subscribe(() => {
-                userLikesArr = userLikesStore.getState().userLikes;
+            let userLikesArr = await likesService.getUserLikes();
+            userLikesStore.dispatch(getAllUserLikes(userLikesArr));
+
+            unSub = userLikesStore.subscribe(async () => {
+                userLikesArr =  userLikesStore.getState().userLikes //await likesService.getUserLikes();
+                const isCurrentLike = userLikesArr.find(l => l.vacationId === props.vacationId);
+                if(isCurrentLike) setIsLiked(!isLiked);
+                else if(!isCurrentLike) setIsLiked(false);
+
             })
-
-            if(!userLikesArr) {
-                userLikesArr = await likesService.getUserLikes();
-                userLikesStore.dispatch(getAllUserLikes(userLikesArr));
-            }
-
-            const isCurrentLike = userLikesArr.find(l => l.vacationId === props.vacationId);
-            if(isCurrentLike) setIsLiked(true);
 
             return() => {
                 if(authService.isLoggedIn()){
@@ -44,29 +43,11 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
         }
     }) as any, [])
 
-    // useEffect(() => {
-    //     if(authService.isLoggedIn()){
-    //         unSub = userLikesStore.subscribe(()=>{
-    //             const userLikesArr = userLikesStore.getState().userLikes;
-    //             setUserLikes(userLikesArr);
-    //         })
-    //         const isCurrentLike = userLikes.find(l => l.vacationId === props.vacationId);
-    //         if(isCurrentLike) {
-    //             setIsLiked(true);
-    //         }
-    //     }
-
-    //     return() => {
-    //     if(authService.isLoggedIn()){
-    //         unSub();
-    //     }}
-    // }, [userLikes]);
-
-    
     const likeIt = async () => {
         try {
-            // const userToken = localStorage.getItem("token");
-            const like = await likesService.likeVacation(props.vacationId);
+            await likesService.likeVacation(props.vacationId);
+            const vacation = await vacationsService.getOneVacation(props.vacationId);
+            vacationsStore.dispatch(updateVacationAction(vacation));
             setIsLiked(!isLiked);
         }
         catch(err: any) {
@@ -77,6 +58,8 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
     const dislike = async () => {
         try{
             await likesService.dislikeVacation(props.vacationId);
+            const vacation = await vacationsService.getOneVacation(props.vacationId);
+            vacationsStore.dispatch(updateVacationAction(vacation));
             setIsLiked(!isLiked);
         }
         catch(err: any) {

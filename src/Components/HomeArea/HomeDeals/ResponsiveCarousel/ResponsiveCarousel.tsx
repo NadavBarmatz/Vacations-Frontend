@@ -32,26 +32,28 @@ function ResponsiveCarousel(): JSX.Element {
     }
   };
 
-  const [vacations, setVacations] = useState<VacationModel[]>([]);
+  const [vacationsId, setVacationsId] = useState<number[]>([]);
 
   let unSub: Unsubscribe;
-  let vacationsArr: VacationModel[];
 
   useEffect(() => {
     unSub = vacationsStore.subscribe(() => {
-      vacationsArr = vacationsStore.getState().vacations;
-      setVacations(vacationsArr);
+      const vacations = vacationsStore.getState().vacations;
+      const vacationsIdArr = vacations.map(v => v.vacationId);
+      setVacationsId(vacationsIdArr);
     })
-  }, [vacationsArr])
+
+    return () => {unSub();}
+  }, [])
     
   return (
     <div className="ResponsiveCarousel">
       {
-        vacations.length === 0 && <Loading />
+        vacationsId.length === 0 && <Loading />
           ||
         <Carousel infinite={true} responsive={responsive}>
-          {vacations.map(v => <div key={v.vacationId}>
-            <CarouselItem vacation={v} />
+          {vacationsId.map(v => <div key={v}>
+            <CarouselItem vacationId={v} />
           </div>)}
         </Carousel>
       }

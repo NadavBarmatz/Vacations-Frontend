@@ -4,7 +4,6 @@ import VacationModel from "../../../Models/VacationModel";
 import { userLikesStore, vacationsStore } from "../../../Redux/Store";
 import { getAllUserLikes } from "../../../Redux/UserLikesState";
 import { getVacationsAction } from "../../../Redux/VacationsState";
-import authService from "../../../Services/AuthService";
 import likesService from "../../../Services/LikesService";
 import vacationsService from "../../../Services/VacationsService";
 import HomeDeals from "../HomeDeals/HomeDeals";
@@ -15,7 +14,8 @@ import "./Home.css";
 function Home(): JSX.Element {
 
     const [vacations, setVacations] = useState<VacationModel[]>([]);
-
+    console.log("Home Vacations", vacations);
+    
     let unSub: Unsubscribe;
     let vacationsArr: VacationModel[] = [];
 
@@ -23,19 +23,19 @@ function Home(): JSX.Element {
 
         unSub = vacationsStore.subscribe(() => {
             vacationsArr = vacationsStore.getState().vacations;
+            setVacations(vacationsArr);
         })
         if(vacationsArr.length === 0){
             vacationsArr = await vacationsService.getAllVacations();
-            vacationsStore.dispatch(getVacationsAction(vacationsArr))
+            vacationsStore.dispatch(getVacationsAction(vacationsArr));
+            setVacations(vacationsArr);
         }
 
-        let userLikes = userLikesStore.getState().userLikes;
-        if(!userLikes) {
-            userLikes = await likesService.getUserLikes();
-            userLikesStore.dispatch(getAllUserLikes(userLikes));
-        }
-
-        setVacations(vacationsArr);
+        // let userLikes = userLikesStore.getState().userLikes;
+        // if(!userLikes) {
+        //     userLikes = await likesService.getUserLikes();
+        //     userLikesStore.dispatch(getAllUserLikes(userLikes));
+        // }
 
         return () => {unSub();}
 

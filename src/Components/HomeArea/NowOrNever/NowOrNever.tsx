@@ -20,7 +20,7 @@ function NowOrNever(props: NowOrNeverProps): JSX.Element {
     return (
         <div className="NowOrNever">
 			<h2>NOW OR NEVER</h2>
-            {randomVacation ? <VacationCard vacation={props.vacations[0]} user={user} /> : <Loading />}
+            {randomVacation ? <VacationCard vacation={randomVacation} user={user} /> : <Loading />}
             
         </div>
     );
