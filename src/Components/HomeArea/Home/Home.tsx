@@ -13,31 +13,32 @@ import "./Home.css";
 
 function Home(): JSX.Element {
 
-    const [vacations, setVacations] = useState<VacationModel[]>([]);
-    console.log("Home Vacations", vacations);
-    
-    let unSub: Unsubscribe;
-    let vacationsArr: VacationModel[] = [];
-
+    // Used to update redux stores for all its sub-components
     useEffect((async () => {
+        try{
 
-        unSub = vacationsStore.subscribe(() => {
-            vacationsArr = vacationsStore.getState().vacations;
-            setVacations(vacationsArr);
-        })
-        if(vacationsArr.length === 0){
-            vacationsArr = await vacationsService.getAllVacations();
-            vacationsStore.dispatch(getVacationsAction(vacationsArr));
-            setVacations(vacationsArr);
+            // Check vacations array from redux:
+            let vacationsArr = vacationsStore.getState().vacations;
+
+            // If redux's vacations array is undefined and store to redux:
+            if(!vacationsArr){
+                vacationsArr = await vacationsService.getAllVacations();
+                vacationsStore.dispatch(getVacationsAction(vacationsArr));
+            }
+
+            // Check user likes array from redux:
+            let userLikes = userLikesStore.getState().userLikes;
+
+            // If redux's user likes array is undefined and store to redux:
+            if(!userLikes) {
+                userLikes = await likesService.getUserLikes();
+                userLikesStore.dispatch(getAllUserLikes(userLikes));
+            }
+            
         }
-
-        // let userLikes = userLikesStore.getState().userLikes;
-        // if(!userLikes) {
-        //     userLikes = await likesService.getUserLikes();
-        //     userLikesStore.dispatch(getAllUserLikes(userLikes));
-        // }
-
-        return () => {unSub();}
+        catch(err: any) {
+            alert(err.message);
+        }
 
     }) as any, [])
 
@@ -48,7 +49,7 @@ function Home(): JSX.Element {
                 <HomeDeals />
             </section>
             <section>
-                <NowOrNever vacations={vacations} />
+                <NowOrNever />
             </section>
             <section>
                 <MorePlacesToGo />

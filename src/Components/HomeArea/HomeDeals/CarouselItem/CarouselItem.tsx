@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Unsubscribe } from "redux";
 import VacationModel from "../../../../Models/VacationModel";
-import { userLikesStore, vacationsStore } from "../../../../Redux/Store";
+import { vacationsStore } from "../../../../Redux/Store";
 import config from "../../../../Utils/Config";
 import LikeAndCart from "../../../SharedArea/LikeAndCart/LikeAndCart";
-import Loading from "../../../SharedArea/Loading/Loading";
 import "./CarouselItem.css";
 
 interface CarouselItemProps {
@@ -16,13 +14,11 @@ function CarouselItem(props: CarouselItemProps): JSX.Element {
 
     const [vacation, setVacation] = useState<VacationModel>();
 
-    let unSub: Unsubscribe;
-
     useEffect(() => {
         let vacations = vacationsStore.getState().vacations;
-        let currentVacation = vacations.find(v => v.vacationId === props.vacationId);
+        let currentVacation = vacations?.find(v => v.vacationId === props.vacationId);
         setVacation(currentVacation);
-        unSub = vacationsStore.subscribe(() => {
+        const unSub = vacationsStore.subscribe(() => {
             vacations = vacationsStore.getState().vacations;
             currentVacation = vacations.find(v => v.vacationId === props.vacationId);
             setVacation(currentVacation);
@@ -45,7 +41,7 @@ function CarouselItem(props: CarouselItemProps): JSX.Element {
                     <span>${vacation?.price.toFixed(2)}</span>
                 </div>
                 <div className="Icons">
-                    <LikeAndCart vacationId={vacation?.vacationId} />
+                    <LikeAndCart vacationId={vacation && vacation.vacationId} />
                 </div>
             </div>
         </div>
