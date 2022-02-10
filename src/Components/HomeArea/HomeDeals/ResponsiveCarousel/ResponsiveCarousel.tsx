@@ -36,23 +36,33 @@ function ResponsiveCarousel(): JSX.Element {
 
   let unSub: Unsubscribe;
 
-  useEffect(() => {
+  useEffect((async () => {
+
+    let vacations = vacationsStore.getState().vacations;
+    if(!vacations){
+      vacations = await vacationsService.getAllVacations();
+    }
+    const bestVacations = vacations?.filter(v => v.price <= 150)
+    const vacationsIdArr = bestVacations?.map(v => v.vacationId);
+    setVacationsId(vacationsIdArr);
+
     unSub = vacationsStore.subscribe(() => {
-      const vacations = vacationsStore.getState().vacations;
-      const vacationsIdArr = vacations.map(v => v.vacationId);
+      vacations = vacationsStore.getState().vacations;
+      const bestVacations = vacations.filter(v => v.price <= 150)
+      const vacationsIdArr = bestVacations.map(v => v.vacationId);
       setVacationsId(vacationsIdArr);
     })
 
     return () => {unSub();}
-  }, [])
+  }) as any, [])
     
   return (
     <div className="ResponsiveCarousel">
       {
-        vacationsId.length === 0 && <Loading />
+        vacationsId?.length === 0 && <Loading />
           ||
         <Carousel infinite={true} responsive={responsive}>
-          {vacationsId.map(v => <div key={v}>
+          {vacationsId?.map(v => <div key={v}>
             <CarouselItem vacationId={v} />
           </div>)}
         </Carousel>

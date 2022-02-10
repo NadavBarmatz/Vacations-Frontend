@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Unsubscribe } from "redux";
 import VacationModel from "../../../Models/VacationModel";
 import { authStore, vacationsStore } from "../../../Redux/Store";
+import vacationsService from "../../../Services/VacationsService";
 import Loading from "../../SharedArea/Loading/Loading";
 import VacationCard from "../../VacationsArea/VacationCard/VacationCard";
 import "./NowOrNever.css";
@@ -10,12 +11,34 @@ interface NowOrNeverProps {
 	vacations: VacationModel[];
 }
 
-function NowOrNever(props: NowOrNeverProps): JSX.Element {
+function NowOrNever(): JSX.Element {
+
+    const [vacations, setVacations] = useState<VacationModel[]>([]);
+    console.log("Now Vacations", vacations);
+
+
+    useEffect(() => {
+
+        let vacationsArr = vacationsStore.getState().vacations;
+        console.log(vacationsArr);
+        
+        setVacations(vacationsArr);
+        
+        const unSub = vacationsStore.subscribe(async () => {
+            vacationsArr = await vacationsService.getAllVacations();
+            setVacations(vacationsArr);
+        });
+
+        return () => {unSub();}
+    })
 
     const user = authStore.getState().user;
     
-    const randomIndex = Math.floor(Math.random() * props.vacations.length);
-    const randomVacation = props.vacations[randomIndex];
+    let randomVacation: VacationModel;
+    if(vacations?.length !== 0){
+        const randomIndex = Math.floor(Math.random() * vacations?.length);
+        randomVacation = vacations?.[0];
+    }
 
     return (
         <div className="NowOrNever">
