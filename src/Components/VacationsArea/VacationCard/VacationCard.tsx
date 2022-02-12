@@ -35,7 +35,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
     return (
         <div className="VacationCard">
             <div className="Image">
-                {props.vacation.imageName
+                {props.vacation?.imageName
                 &&
                 <img src={config.urls.images + props.vacation?.imageName} />
                 }

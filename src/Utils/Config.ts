@@ -2,6 +2,7 @@ class Config{
     public urls = {
         vacations: "",
         destinations: "",
+        autoComplete: "",
         images: "",
         register: "",
         login: "",
@@ -15,6 +16,7 @@ class Config{
         this.urls = {
             vacations: baseUrl + "vacations/",
             destinations: baseUrl + "destinations/",
+            autoComplete: baseUrl + "auto-complete/",
             images: baseUrl + "vacations/images/",
             register: baseUrl + "auth/register/",
             login: baseUrl + "auth/login/",

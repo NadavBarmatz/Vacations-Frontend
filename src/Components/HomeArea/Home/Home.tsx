@@ -4,6 +4,7 @@ import VacationModel from "../../../Models/VacationModel";
 import { userLikesStore, vacationsStore } from "../../../Redux/Store";
 import { getAllUserLikes } from "../../../Redux/UserLikesState";
 import { getVacationsAction } from "../../../Redux/VacationsState";
+import authService from "../../../Services/AuthService";
 import likesService from "../../../Services/LikesService";
 import vacationsService from "../../../Services/VacationsService";
 import HomeDeals from "../HomeDeals/HomeDeals";
@@ -26,13 +27,15 @@ function Home(): JSX.Element {
                 vacationsStore.dispatch(getVacationsAction(vacationsArr));
             }
 
-            // Check user likes array from redux:
-            let userLikes = userLikesStore.getState().userLikes;
+            if(authService.isLoggedIn()){
+                // Check user likes array from redux:
+                let userLikes = userLikesStore.getState().userLikes;
 
-            // If redux's user likes array is undefined and store to redux:
-            if(!userLikes) {
-                userLikes = await likesService.getUserLikes();
-                userLikesStore.dispatch(getAllUserLikes(userLikes));
+                // If redux's user likes array is undefined and store to redux:
+                if(!userLikes) {
+                    userLikes = await likesService.getUserLikes();
+                    userLikesStore.dispatch(getAllUserLikes(userLikes));
+                }
             }
             
         }

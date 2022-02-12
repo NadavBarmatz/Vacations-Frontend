@@ -36,9 +36,11 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
                     if(isVacationLiked) setIsLiked(!isLiked);
                     else if (!isVacationLiked) setIsLiked(false);
                 })
+                
+                return () => {unSub()}
+
             }
 
-            return () => {unSub()}
         }
         catch(err: any) {
             alert(err.message);

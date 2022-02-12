@@ -6,6 +6,7 @@ import { InputAdornment, TextField } from "@mui/material";
 import AuthMenu from "../../AuthArea/AuthMenu/AuthMenu";
 import "./Navbar.css";
 import { useEffect, useState } from "react";
+import Search from "../../SharedArea/Search/Search";
 
 function Navbar(): JSX.Element {
 
@@ -29,14 +30,7 @@ function Navbar(): JSX.Element {
                 <NavLink to="/deals">DEALS</NavLink>
                 <NavLink to="/contact">CONTACT</NavLink>
             </div>
-            <div className="Search">
-                <TextField variant="standard" className="InputBox" InputProps={{startAdornment: (
-                    <InputAdornment position="end">
-                        <SearchIcon className="SearchIcon" />
-                    </InputAdornment>
-                ),disableUnderline: true
-                }}/>
-            </div>
+            <Search unique="nav" />
                 <PersonIcon className="AuthIcon" />
                 <AuthMenu />
         </div>

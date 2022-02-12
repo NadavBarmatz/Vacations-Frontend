@@ -22,13 +22,6 @@
     transform: translateX(-50%);
 }
 
-.Header  .InputBox {
-    width: 30%;
-    transform: translateX(-50%);
-    background-color: var(--clr000);
-    border-radius: 25vh;
-    /* display: flex; */
-    position: absolute;
-    top: 40%;
-    left: 50%;
+.Header > .Search {
+    width: 130%;
 }

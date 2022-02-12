@@ -14,14 +14,10 @@ interface NowOrNeverProps {
 function NowOrNever(): JSX.Element {
 
     const [vacations, setVacations] = useState<VacationModel[]>([]);
-    console.log("Now Vacations", vacations);
-
 
     useEffect(() => {
 
         let vacationsArr = vacationsStore.getState().vacations;
-        console.log(vacationsArr);
-        
         setVacations(vacationsArr);
         
         const unSub = vacationsStore.subscribe(async () => {
