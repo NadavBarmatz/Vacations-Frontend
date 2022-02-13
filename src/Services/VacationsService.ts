@@ -11,8 +11,15 @@ class VacationsService {
         return destinations;
     }
 
+
     public async getAllVacations(): Promise<VacationModel[]> {        
         const response = await axios.get<VacationModel[]>(config.urls.vacations);
+        const vacations = response.data;
+        return vacations;    
+    }
+
+    public async getAllVacationsByDestinationId(id: number): Promise<VacationModel[]> {        
+        const response = await axios.get<VacationModel[]>(config.urls.vacationsByDestination + id);
         const vacations = response.data;
         return vacations;    
     }
