@@ -1,0 +1,21 @@
+.VacationsByDestination {
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.VacationsByDestination > h2 {
+    width: 100%;
+}
+
+.VacationsByDestination > .VacationCard {
+    width: 30%;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+.VacationsByDestination > .VacationCard > div {
+    width: 80%;
+}

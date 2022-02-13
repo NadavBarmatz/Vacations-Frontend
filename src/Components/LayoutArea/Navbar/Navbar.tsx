@@ -7,6 +7,7 @@ import AuthMenu from "../../AuthArea/AuthMenu/AuthMenu";
 import "./Navbar.css";
 import { useEffect, useState } from "react";
 import Search from "../../SharedArea/Search/Search";
+import SearchComponent from "../../SharedArea/SearchComponent/SearchComponent";
 
 function Navbar(): JSX.Element {
 
@@ -29,10 +30,11 @@ function Navbar(): JSX.Element {
                 <NavLink to="/booking">BOOK A FLY</NavLink>
                 <NavLink to="/deals">DEALS</NavLink>
                 <NavLink to="/contact">CONTACT</NavLink>
+                <NavLink to="/charts">CHARTS</NavLink>
             </div>
-            <Search unique="nav" />
-                <PersonIcon className="AuthIcon" />
-                <AuthMenu />
+            <SearchComponent uniqueID="nav_" />
+            <PersonIcon className="AuthIcon" />
+            <AuthMenu />
         </div>
     );
 }

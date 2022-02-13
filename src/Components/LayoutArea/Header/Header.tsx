@@ -5,6 +5,7 @@ import DestinationModel from "../../../Models/DestinationModel";
 import { SyntheticEvent, useState } from "react";
 import autoSearchService from "../../../Services/autoSearchService";
 import Search from "../../SharedArea/Search/Search";
+import SearchComponent from "../../SharedArea/SearchComponent/SearchComponent";
 
 
 function Header(): JSX.Element {
@@ -28,7 +29,7 @@ function Header(): JSX.Element {
                     </InputAdornment>
                 ),disableUnderline: true
             }} onChange={autoComplete} /> */}
-            <Search unique="header" />
+            <SearchComponent uniqueID="header_" />
            
         
         </div>

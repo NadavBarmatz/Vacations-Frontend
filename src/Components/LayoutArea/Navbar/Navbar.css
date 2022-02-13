@@ -27,7 +27,7 @@
     color: var(--clr000);
 }
 
-.Navbar .Search {
+.Navbar .SearchComponent {
     position: absolute;
     right: 20%;
 }
