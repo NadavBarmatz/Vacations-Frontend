@@ -4,7 +4,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import DestinationModel from "../../../Models/DestinationModel";
 import { SyntheticEvent, useState } from "react";
 import autoSearchService from "../../../Services/autoSearchService";
-import Search from "../../SharedArea/Search/Search";
 import SearchComponent from "../../SharedArea/SearchComponent/SearchComponent";
 
 

@@ -6,7 +6,6 @@ import { InputAdornment, TextField } from "@mui/material";
 import AuthMenu from "../../AuthArea/AuthMenu/AuthMenu";
 import "./Navbar.css";
 import { useEffect, useState } from "react";
-import Search from "../../SharedArea/Search/Search";
 import SearchComponent from "../../SharedArea/SearchComponent/SearchComponent";
 
 function Navbar(): JSX.Element {

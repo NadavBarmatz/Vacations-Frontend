@@ -3,12 +3,16 @@ import * as V from 'victory';
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme, VictoryStack } from 'victory';
 import VacationModel from "../../../Models/VacationModel";
 import { useEffect, useState } from "react";
-import { vacationsStore } from "../../../Redux/Store";
+import { authStore, vacationsStore } from "../../../Redux/Store";
 import vacationsService from "../../../Services/VacationsService";
+import Role from "../../../Models/Role";
+import MustBeAdmin from "../../SharedArea/MustBeAdmin/MustBeAdmin";
 
 function LikesChart(): JSX.Element {
 
     const [vacations, setVacations] = useState<VacationModel[]>(vacationsStore.getState().vacations);
+
+    const isAdmin = authStore.getState().user?.role;
 
     useEffect((async () => {
         if(!vacations) {
@@ -25,19 +29,26 @@ function LikesChart(): JSX.Element {
     
     return (
         <div className="LikesChart">
-            <h1>Vacations Likes Tracking</h1>
-            {data ? <div>
-                <VictoryChart  domainPadding={25}>
-                    <VictoryStack colorScale="warm">
-                        <VictoryBar
-                        categories={xAxisNaming}
-                            data={data}
-                            x="id"
-                            y="likes"       
-                        />
-                    </VictoryStack>
-                </VictoryChart>
-            </div> : <p>no data</p>}
+        {
+            isAdmin === Role.Admin ?
+                <div>
+                    <h1>Vacations Likes Tracking</h1>
+                    {data ? <div>
+                        <VictoryChart  domainPadding={25}>
+                            <VictoryStack colorScale="warm">
+                                <VictoryBar
+                                categories={xAxisNaming}
+                                    data={data}
+                                    x="id"
+                                    y="likes"       
+                                />
+                            </VictoryStack>
+                        </VictoryChart>
+                    </div> : <p>no data</p>}
+                </div>
+            :
+                <MustBeAdmin />
+        }
         </div>
     );
 }

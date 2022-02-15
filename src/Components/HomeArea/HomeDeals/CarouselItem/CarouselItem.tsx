@@ -31,7 +31,9 @@ function CarouselItem(props: CarouselItemProps): JSX.Element {
         <div className="CarouselItem">
             <NavLink to={"/vacation/" + props.vacationId}>
                 <span>Total Likes: {vacation?.likes}</span>
-    			<img src={config.urls.images + vacation?.imageName} />
+                {vacation?.imageName && 
+    			    <img src={config.urls.images + vacation?.imageName} />
+                }
             </NavLink>
             <div className="Description">
                 <div className="Country">
