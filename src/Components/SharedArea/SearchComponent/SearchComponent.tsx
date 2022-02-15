@@ -6,6 +6,7 @@ import "./SearchComponent.css";
 import SearchIcon from '@mui/icons-material/Search';
 import { destinationStore } from "../../../Redux/Store";
 import { setDestinationId } from "../../../Redux/destinationState";
+import notificationService from "../../../Services/NotificationService";
 
 interface SearchComponentProps {
     uniqueID: string;
@@ -26,7 +27,7 @@ function SearchComponent(props: SearchComponentProps): JSX.Element {
             
         }
         catch(err:any){
-            alert(err.message);
+            notificationService.error(err);
         }
     }
 
@@ -43,7 +44,7 @@ function SearchComponent(props: SearchComponentProps): JSX.Element {
             }
         }
         catch(err: any){
-            alert(err.message);
+            notificationService.error(err);
         }
     }
 

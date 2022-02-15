@@ -8,6 +8,7 @@ import config from "../../../../Utils/Config";
 import Loading from "../../../SharedArea/Loading/Loading";
 import { vacationsStore } from "../../../../Redux/Store";
 import CarouselNameItem from "../CarouselNameItem/CarouselNameItem";
+import notificationService from "../../../../Services/NotificationService";
 
 function ResponsiveNameCarousel(): JSX.Element {
 
@@ -45,7 +46,7 @@ function ResponsiveNameCarousel(): JSX.Element {
       }
     }
     catch(err: any) {
-      alert(err.message);
+      notificationService.error(err);
     }
   }) as any, [])
     

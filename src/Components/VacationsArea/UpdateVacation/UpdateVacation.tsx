@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import DestinationModel from "../../../Models/DestinationModel";
 import VacationModel from "../../../Models/VacationModel";
 import { vacationsStore } from "../../../Redux/Store";
+import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
 import "./UpdateVacation.css";
 
@@ -32,7 +33,7 @@ function UpdateVacation(): JSX.Element {
             setDestinations(destinationsArr);
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }) as any, [])
 
@@ -53,11 +54,11 @@ function UpdateVacation(): JSX.Element {
         try{
             vacation.vacationId = id;
             await vacationsService.fullUpdateVacation(vacation);
-            alert("Vacation updated by Admin");
+            notificationService.success("Vacation updated by Admin");
             navigate("/deals");
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }
 

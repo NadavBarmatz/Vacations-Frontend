@@ -42,7 +42,7 @@ function ResponsiveCarousel(): JSX.Element {
     if(!vacations){
       vacations = await vacationsService.getAllVacations();
     }
-    const bestVacations = vacations?.filter(v => v.price <= 150)
+    const bestVacations = vacations?.filter(v => v.price <= 150);
     const vacationsIdArr = bestVacations?.map(v => v.vacationId);
     setVacationsId(vacationsIdArr);
 

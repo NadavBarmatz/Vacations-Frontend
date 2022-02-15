@@ -4,6 +4,7 @@ import "./Register.css";
 import UserModel from "../../../Models/UserModel";
 import { useNavigate } from "react-router-dom";
 import authService from "../../../Services/AuthService";
+import notificationService from "../../../Services/NotificationService";
 
 function Register(): JSX.Element {
 
@@ -14,11 +15,11 @@ function Register(): JSX.Element {
     const submit = async (user: UserModel) => {
         try{
             await authService.register(user);
-            alert("Registration succeed");
+            notificationService.success("Registration succeed");
             navigate("/home");
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }
 

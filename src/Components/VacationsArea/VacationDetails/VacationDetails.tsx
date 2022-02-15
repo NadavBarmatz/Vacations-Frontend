@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import VacationModel from "../../../Models/VacationModel";
 import { authStore } from "../../../Redux/Store";
+import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
 import Loading from "../../SharedArea/Loading/Loading";
 import VacationCard from "../VacationCard/VacationCard";
@@ -19,7 +20,7 @@ function VacationDetails(): JSX.Element {
             setVacation(vacation);
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }) as any, [])
 

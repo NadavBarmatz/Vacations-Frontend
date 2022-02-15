@@ -7,6 +7,7 @@ import { getAllUserLikes } from "../../../Redux/UserLikesState";
 import { getVacationsAction } from "../../../Redux/VacationsState";
 import authService from "../../../Services/AuthService";
 import likesService from "../../../Services/LikesService";
+import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
 import Loading from "../../SharedArea/Loading/Loading";
 import VacationCard from "../VacationCard/VacationCard";
@@ -65,7 +66,7 @@ function VacationsList(): JSX.Element {
             return () => {unSub()};
         }
         catch(err: any) {
-            alert(err.message)
+            notificationService.error(err);
         }
     }) as any, [])
 

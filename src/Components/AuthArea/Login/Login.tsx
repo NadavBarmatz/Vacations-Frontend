@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import CredentialsModel from "../../../Models/CredentialsModel";
 import authService from "../../../Services/AuthService";
+import notificationService from "../../../Services/NotificationService";
 import "./Login.css";
 
 function Login(): JSX.Element {
@@ -14,11 +15,11 @@ function Login(): JSX.Element {
     const submit = async (credentials: CredentialsModel) => {
         try{
             await authService.login(credentials);
-            alert("Login succeed");
+            notificationService.success("Login succeed");
             navigate("/home");
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }
 

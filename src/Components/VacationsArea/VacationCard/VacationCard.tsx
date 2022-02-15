@@ -11,6 +11,7 @@ import vacationsService from "../../../Services/VacationsService";
 import { vacationsStore } from "../../../Redux/Store";
 import { deleteVacationAction } from "../../../Redux/VacationsState";
 import { NavLink, useNavigate } from "react-router-dom";
+import notificationService from "../../../Services/NotificationService";
 
 interface VacationCardProps {
     vacation: VacationModel;
@@ -25,10 +26,10 @@ function VacationCard(props: VacationCardProps): JSX.Element {
         try{
             await vacationsService.deleteVacation(vacationId);
             vacationsStore.dispatch(deleteVacationAction(vacationId));
-            alert("Vacation has been deleted")
+            notificationService.success("Vacation has been deleted");
         }
         catch(err: any) {
-            alert(err.message)
+            notificationService.error(err);
         }
     }
 

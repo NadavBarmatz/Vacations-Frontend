@@ -1,16 +1,12 @@
 import Logo from "../../../Assets/Images/Logo/logoWhite.png";
 import { NavLink } from "react-router-dom";
 import PersonIcon from '@mui/icons-material/Person';
-import SearchIcon from '@mui/icons-material/Search';
-import { InputAdornment, TextField } from "@mui/material";
 import AuthMenu from "../../AuthArea/AuthMenu/AuthMenu";
 import "./Navbar.css";
 import { useEffect, useState } from "react";
 import SearchComponent from "../../SharedArea/SearchComponent/SearchComponent";
 
 function Navbar(): JSX.Element {
-
-    const scrolledCss = "Scrolled";
 
     const [scroll, setScroll] = useState<number>(0);
     

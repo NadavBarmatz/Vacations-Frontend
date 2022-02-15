@@ -6,6 +6,7 @@ import { getAllUserLikes } from "../../../Redux/UserLikesState";
 import { getVacationsAction } from "../../../Redux/VacationsState";
 import authService from "../../../Services/AuthService";
 import likesService from "../../../Services/LikesService";
+import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
 import HomeDeals from "../HomeDeals/HomeDeals";
 import MorePlacesToGo from "../MorePlacesToGo/MorePlacesToGo";
@@ -40,7 +41,7 @@ function Home(): JSX.Element {
             
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
 
     }) as any, [])

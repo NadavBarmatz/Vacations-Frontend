@@ -10,6 +10,7 @@ import { Unsubscribe } from "redux";
 import authService from "../../../Services/AuthService";
 import vacationsService from "../../../Services/VacationsService";
 import { updateVacationAction } from "../../../Redux/VacationsState";
+import notificationService from "../../../Services/NotificationService";
 
 interface LikeAndCartProps {
     vacationId: number;
@@ -43,7 +44,7 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
 
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }) as any, [])
 
@@ -55,7 +56,7 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
             setIsLiked(!isLiked);
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }      
     }
 
@@ -67,7 +68,7 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
             setIsLiked(!isLiked);
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }
 

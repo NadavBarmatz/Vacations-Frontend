@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import DestinationModel from "../../../Models/DestinationModel";
 import VacationModel from "../../../Models/VacationModel";
+import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
 import "./AddVacation.css";
 
@@ -39,11 +40,11 @@ function AddVacation(): JSX.Element {
     const submit = async (vacation: VacationModel) => {
         try{
             await vacationsService.addVacation(vacation);
-            alert("Vacation has been added by admin");
+            notificationService.success("Vacation has been added by admin");
             navigate("/deals");
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
 
     }

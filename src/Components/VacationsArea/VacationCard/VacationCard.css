@@ -3,7 +3,6 @@
     border: 2px solid var(--clr600);
     padding: 20px;
     display: flex;
-    gap: 20px;
     position: relative;
 }
 
@@ -33,8 +32,8 @@
 }
 
 .VacationCard div[role="group"] {
-    margin-left: 50%;
-    transform: translateX(-5%);
+    display: inline-block;
     position: absolute;
     bottom: 20px;
+    right: 0;
 }

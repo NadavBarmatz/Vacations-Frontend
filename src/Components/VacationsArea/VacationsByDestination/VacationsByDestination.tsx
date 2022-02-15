@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import VacationModel from "../../../Models/VacationModel";
 import { setDestinationId } from "../../../Redux/destinationState";
 import { authStore, destinationStore } from "../../../Redux/Store";
+import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
 import Loading from "../../SharedArea/Loading/Loading";
 import VacationCard from "../VacationCard/VacationCard";
@@ -32,7 +33,7 @@ function VacationsByDestination(): JSX.Element {
 
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }) as any, [])
 
