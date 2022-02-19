@@ -1,6 +1,5 @@
 import Logo from "../../../Assets/Images/Logo/logoWhite.png";
 import { NavLink } from "react-router-dom";
-import PersonIcon from '@mui/icons-material/Person';
 import AuthMenu from "../../AuthArea/AuthMenu/AuthMenu";
 import "./Navbar.css";
 import { useEffect, useState } from "react";
@@ -19,16 +18,16 @@ function Navbar(): JSX.Element {
     return (
         <div className={scroll > (window.innerHeight / 2) ? "Navbar Scrolled" : "Navbar"}>
 			<div className="Logo">
-                <img src={Logo} />
+                <NavLink to="/home">
+                    <img src={Logo} />
+                </NavLink>
             </div>
             <div className="Links">
                 <NavLink to="/booking">BOOK A FLY</NavLink>
                 <NavLink to="/deals">DEALS</NavLink>
                 <NavLink to="/contact">CONTACT</NavLink>
-                <NavLink to="/charts">CHARTS</NavLink>
             </div>
             <SearchComponent uniqueID="nav_" />
-            <PersonIcon className="AuthIcon" />
             <AuthMenu />
         </div>
     );

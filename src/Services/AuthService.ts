@@ -1,5 +1,6 @@
 import axios from 'axios';
 import CredentialsModel from '../Models/CredentialsModel';
+import Role from '../Models/Role';
 import UserModel from "../Models/UserModel";
 import { registerAction, loginAction, logoutAction } from '../Redux/AuthState';
 import { authStore } from '../Redux/Store';
@@ -25,6 +26,10 @@ class AuthService {
 
     public isLoggedIn() : boolean {
         return authStore.getState().token !== null;
+    }
+
+    public isAdmin() : boolean {
+        return authStore.getState().user?.role === Role.Admin;
     }
 
 }

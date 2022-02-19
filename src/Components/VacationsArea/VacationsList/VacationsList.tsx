@@ -39,7 +39,6 @@ function VacationsList(): JSX.Element {
         
                     // If redux's user likes array is undefined and store to redux:
                     if(!userLikesArr){
-                        console.log("user likes array from server")
                         userLikesArr = await likesService.getUserLikes();
                         userLikesStore.dispatch(getAllUserLikes(userLikesArr))
                     }

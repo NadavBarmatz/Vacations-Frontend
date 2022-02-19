@@ -13,6 +13,9 @@ function UpdateVacation(): JSX.Element {
 
     const id = +useParams().id;
 
+    // Get vacation from database to autofill update form:
+    const [vacation, setVacation] = useState<VacationModel>();
+
     // Used to set select options and value:
     const [destinations, setDestinations] = useState<DestinationModel[]>([]);
     const [selectValue, setSelectValue] = useState<string>("");
@@ -26,6 +29,13 @@ function UpdateVacation(): JSX.Element {
 
     useEffect((async () => {
         try {
+
+            let currentVacation = vacationsStore.getState().vacations?.find(v => v.vacationId === id);
+            if (!currentVacation){
+                currentVacation = await vacationsService.getOneVacation(id);
+            }
+            setVacation(currentVacation);
+
             // Get destination from srvr:
             const destinationsArr = await vacationsService.getAllDestinations();
             // Sort by alphabet order:

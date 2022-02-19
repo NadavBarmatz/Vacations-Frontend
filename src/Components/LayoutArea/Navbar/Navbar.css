@@ -13,7 +13,7 @@
     width: 3%;
 }
 
-.Navbar .Logo > img {
+.Navbar .Logo  img {
     width: 100%;
 }
 
@@ -28,19 +28,12 @@
 }
 
 .Navbar .SearchComponent {
-    position: absolute;
-    right: 20%;
+    position: relative;
+    left: 30%;
 }
 
 .Navbar .AuthMenu {
     position: absolute;
-    right: 6%;
+    right: 20px;
 }
-
-.Navbar .AuthIcon {
-    position: absolute;
-    right: 2%;
-    cursor: pointer;
-}
-
 

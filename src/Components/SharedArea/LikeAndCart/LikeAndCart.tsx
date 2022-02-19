@@ -20,33 +20,37 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
     
     const [isLiked, setIsLiked] = useState<boolean>(false);
 
-    useEffect(( async () => {
-        try{
-            let unSub : Unsubscribe;
-
-            if(authService.isLoggedIn()){
-
-                let userLikesArr = await likesService.getUserLikes();
-                const isVacationLiked = userLikesArr.find(v => v.vacationId === props.vacationId);
-                if(isVacationLiked) setIsLiked(true);
-                else if (!isVacationLiked) setIsLiked(false);
-
-                unSub = userLikesStore.subscribe(() => {
-                    let userLikesArr = userLikesStore.getState().userLikes;
+    let unSub : Unsubscribe;
+    useEffect(() => {
+        (async()=>{
+            try{
+    
+                if(authService.isLoggedIn()){
+    
+                    let userLikesArr = await likesService.getUserLikes();
                     const isVacationLiked = userLikesArr.find(v => v.vacationId === props.vacationId);
-                    if(isVacationLiked) setIsLiked(!isLiked);
+                    if(isVacationLiked) setIsLiked(true);
                     else if (!isVacationLiked) setIsLiked(false);
-                })
+    
+                    unSub = userLikesStore.subscribe(() => {
+                        let userLikesArr = userLikesStore.getState().userLikes;
+                        const isVacationLiked = userLikesArr.find(v => v.vacationId === props.vacationId);
+                        if(isVacationLiked) setIsLiked(!isLiked);
+                        else if (!isVacationLiked) setIsLiked(false);
+                    })
+                    
+                    
+                }
                 
-                return () => {unSub()}
-
             }
-
+            catch(err: any) {
+                notificationService.error(err);
+            }
+        })();
+        if(authService.isLoggedIn()){
+            return () => {unSub()}
         }
-        catch(err: any) {
-            notificationService.error(err);
-        }
-    }) as any, [])
+    }, [])
 
     const likeIt = async () => {
         try {

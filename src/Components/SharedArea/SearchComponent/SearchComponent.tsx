@@ -21,7 +21,6 @@ function SearchComponent(props: SearchComponentProps): JSX.Element {
     const autoComplete = async (e: SyntheticEvent) => {
         try{
             const str = (e.target as HTMLInputElement).value.split(",")[0];
-            console.log(str)
             const destinations = await autoSearchService.autoComplete(str);
             setDestinations( destinations );
             
@@ -38,7 +37,6 @@ function SearchComponent(props: SearchComponentProps): JSX.Element {
                 const destination =  destinations.find( d => d.destinationCity.toLowerCase().includes(target) 
                 || d.destinationCountry.toLowerCase().includes(target) );
                 
-                console.log(destination);
                 destinationStore.dispatch(setDestinationId(destination.destinationId));
                 navigate("/vacations/list-by-destination/" + destination.destinationId)
             }

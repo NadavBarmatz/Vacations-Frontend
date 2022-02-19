@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import VacationModel from "../../../Models/VacationModel";
 import { setDestinationId } from "../../../Redux/destinationState";
 import { authStore, destinationStore } from "../../../Redux/Store";
@@ -10,6 +10,8 @@ import VacationCard from "../VacationCard/VacationCard";
 import "./VacationsByDestination.css";
 
 function VacationsByDestination(): JSX.Element {
+
+    const navigate = useNavigate();
 
     const [vacations, setVacations] = useState<VacationModel[]>([]);
 
@@ -34,6 +36,7 @@ function VacationsByDestination(): JSX.Element {
         }
         catch(err: any) {
             notificationService.error(err);
+            navigate("/home");
         }
     }) as any, [])
 
