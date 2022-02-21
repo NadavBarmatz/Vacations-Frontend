@@ -11,7 +11,7 @@ import "./AddVacation.css";
 
 function AddVacation(): JSX.Element {
 
-    const myRef = React.createRef<HTMLObjectElement>();
+    const myRef = React.createRef<HTMLFormElement>();
 
 
     // Used to set select options and value:
@@ -28,7 +28,7 @@ function AddVacation(): JSX.Element {
     useEffect((async () => {
         try {
             myRef.current.scrollIntoView();
-            // Get destination from srvr:
+            // Get destination from server:
             const destinationsArr = await vacationsService.getAllDestinations();
             // Sort by alphabet order:
             destinationsArr.sort((a, b) => a.destinationCountry < b.destinationCountry ? -1 : 1)
@@ -68,7 +68,7 @@ function AddVacation(): JSX.Element {
         <div className="AddVacation">
             
             <h2>Add New Vacation</h2>
-            <form onSubmit={handleSubmit(submit)}>
+            <form ref={myRef} onSubmit={handleSubmit(submit)}>
 
                 <FormControl fullWidth>
                     <InputLabel>Destination</InputLabel>
@@ -118,8 +118,6 @@ function AddVacation(): JSX.Element {
                 </ButtonGroup>
             </form>
 
-            <span ref={myRef}></span>
-			
         </div>
     );
 }

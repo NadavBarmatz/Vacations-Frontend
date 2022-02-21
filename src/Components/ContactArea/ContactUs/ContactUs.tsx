@@ -1,7 +1,9 @@
 import { Button, ButtonGroup, TextField } from "@mui/material";
+import { createRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import MessageModel from "../../../Models/MessageModel";
 import { authStore } from "../../../Redux/Store";
+import notificationService from "../../../Services/NotificationService";
 import PleaseLogIn from "../../SharedArea/PleaseLogIn/PleaseLogIn";
 import "./ContactUs.css";
 
@@ -9,10 +11,23 @@ function ContactUs(): JSX.Element {
 
     const {register, handleSubmit, formState, reset} = useForm<MessageModel>();
 
+    const myRef = createRef<HTMLFormElement>();
+
+    useEffect(()=>{
+        myRef.current.scrollIntoView();
+    },[])
+
     const user = authStore.getState().user;
 
     const submit = (message: MessageModel) => {
-        console.log(message);
+        try {
+            // Implement here email sending to admin mail.
+
+            notificationService.success("Your message has been sent successfully");
+        }
+        catch(err: any) {
+            notificationService.error(err);
+        }
     }
     
     return (
@@ -22,7 +37,7 @@ function ContactUs(): JSX.Element {
                 <div>
                     <h1>CONTACT US</h1>
 
-                    <form onSubmit={handleSubmit(submit)}>
+                    <form ref={myRef} onSubmit={handleSubmit(submit)}>
                         
                         <TextField label="Subject" className="TextBox" {...register("subject", {
                             required: {value: true, message: "Field is required"}
