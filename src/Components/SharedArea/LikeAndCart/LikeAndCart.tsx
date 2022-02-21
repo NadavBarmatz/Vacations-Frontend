@@ -22,8 +22,8 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
 
     let unSub : Unsubscribe;
     useEffect(() => {
-        (async()=>{
-            try{
+        try{
+            (async()=>{
     
                 if(authService.isLoggedIn()){
                     // first check if user likes array exist in redux:
@@ -49,14 +49,13 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
                     
                     
                 }
-                
+            })();
+            if(authService.isLoggedIn()){
+                return () => {unSub()}
             }
-            catch(err: any) {
-                notificationService.error(err);
-            }
-        })();
-        if(authService.isLoggedIn()){
-            return () => {unSub()}
+        }
+        catch(err: any) {
+            notificationService.error(err);
         }
     }, [])
 
@@ -70,7 +69,7 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
         catch(err: any) {
             notificationService.error(err);
         }      
-    }
+    };
 
     const dislike = async () => {
         try{
@@ -82,14 +81,18 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
         catch(err: any) {
             notificationService.error(err);
         }
-    }
+    };
+
+    const addToCart = () => {
+        notificationService.error("Cart is under construction, will be available soon")
+    };
 
     return (
         <div className="LikeAndCart">
             
             {isLiked ? <FavoriteIcon onClick={dislike} /> : <FavoriteBorderIcon onClick={likeIt} />}
 
-            <AddShoppingCartIcon />
+            <AddShoppingCartIcon onClick={addToCart} />
             		
         </div>
     );
