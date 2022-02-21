@@ -20,54 +20,56 @@ function VacationsList(): JSX.Element {
     
     
 
-    useEffect((async () => {
+    useEffect(() => {
         try{
             let unSub : Unsubscribe;
-            
-            // Get vacations array from redux:
-            let vacationsArr = vacationsStore.getState().vacations;
-            
-            // If redux's vacations array is undefined and store to redux:
-            if(!vacationsArr){
-                vacationsArr = await vacationsService.getAllVacations();
-                vacationsStore.dispatch(getVacationsAction(vacationsArr));
-            }
-        
-                if(authService.isLoggedIn()){
-                    // Get user likes array from redux:
-                    let userLikesArr = userLikesStore.getState().userLikes;
-        
-                    // If redux's user likes array is undefined and store to redux:
-                    if(!userLikesArr){
-                        userLikesArr = await likesService.getUserLikes();
-                        userLikesStore.dispatch(getAllUserLikes(userLikesArr))
-                    }
-
-                    // Sort vacations array by user likes:
-                    vacationsArr.sort(v => userLikesArr.find(l => l.vacationId === v.vacationId) ? -1 : 1);
-
-                    // Listen to changes to vacations store. If changed, bring all vacations from server and update state:
-                    unSub = vacationsStore.subscribe(async() => {
+            (async() => {
+                // Get vacations array from redux:
+                let vacationsArr = vacationsStore.getState().vacations;
+                
+                // If redux's vacations array is undefined and store to redux:
+                if(!vacationsArr){
                     vacationsArr = await vacationsService.getAllVacations();
-                    userLikesArr = userLikesStore.getState().userLikes;//await likesService.getUserLikes();
-                    vacationsArr.sort(v => userLikesArr.find(l => l.vacationId === v.vacationId) ? -1 : 1)
-
-                    setVacations(vacationsArr);
-                });
+                    vacationsStore.dispatch(getVacationsAction(vacationsArr));
+                }
+            
+                    if(authService.isLoggedIn()){
+                        // Get user likes array from redux:
+                        let userLikesArr = userLikesStore.getState().userLikes;
+            
+                        // If redux's user likes array is undefined and store to redux:
+                        if(!userLikesArr){
+                            userLikesArr = await likesService.getUserLikes();
+                            userLikesStore.dispatch(getAllUserLikes(userLikesArr))
+                        }
+    
+                        // Sort vacations array by user likes:
+                        vacationsArr.sort(v => userLikesArr.find(l => l.vacationId === v.vacationId) ? -1 : 1);
+    
+                        // Listen to changes to vacations store. If changed, bring all vacations from server and update state:
+                        unSub = vacationsStore.subscribe(async() => {
+                        vacationsArr = await vacationsService.getAllVacations();
+                        userLikesArr = userLikesStore.getState().userLikes;//await likesService.getUserLikes();
+                        vacationsArr.sort(v => userLikesArr.find(l => l.vacationId === v.vacationId) ? -1 : 1)
+    
+                        setVacations(vacationsArr);
+                    });
+                }
+    
+            
+                // update state with sorted vacations array to state:
+                setVacations(vacationsArr);
+            })();
+            
+            
+            if(authService.isLoggedIn()){
+                return () => {unSub()};
             }
-
-        
-            // update state with sorted vacations array to state:
-            setVacations(vacationsArr);
-            
-            
-                        
-            return () => {unSub()};
         }
         catch(err: any) {
             notificationService.error(err);
         }
-    }) as any, [])
+    }, [])
 
     return (
         <div className="VacationsList">

@@ -13,17 +13,15 @@ function UpdateVacation(): JSX.Element {
 
     const id = +useParams().id;
 
-    // Get vacation from database to autofill update form:
-    const [vacation, setVacation] = useState<VacationModel>();
-
     // Used to set select options and value:
     const [destinations, setDestinations] = useState<DestinationModel[]>([]);
-    const [selectValue, setSelectValue] = useState<string>("");
+    // especially for the UI
+    const [selectValue, setSelectValue] = useState<number>(0);
 
     // Used to validate meeting end time is not before start time:
     const [startTime, setStartTime] = useState<string>("");
 
-    const {register, handleSubmit, reset, formState} = useForm<VacationModel>();
+    const {register, handleSubmit, reset, formState, setValue} = useForm<VacationModel>();
 
     const navigate = useNavigate(); 
 
@@ -34,9 +32,18 @@ function UpdateVacation(): JSX.Element {
             if (!currentVacation){
                 currentVacation = await vacationsService.getOneVacation(id);
             }
-            setVacation(currentVacation);
 
-            // Get destination from srvr:
+            // setting the values of the form with data from the server:
+            setValue("description", currentVacation.description);
+            setValue("start", currentVacation.start.split(" ")[0]+"T"+currentVacation.start.split(" ")[1]);
+            setValue("end", currentVacation.end.split(" ")[0]+"T"+currentVacation.end.split(" ")[1]);
+            setValue("price", currentVacation.price);
+            setValue("destinationId", currentVacation.destinationId)
+
+            // for the select input UI
+            setSelectValue(currentVacation.destinationId);
+
+            // Get destination from server:
             const destinationsArr = await vacationsService.getAllDestinations();
             // Sort by alphabet order:
             destinationsArr.sort((a, b) => a.destinationCountry < b.destinationCountry ? -1 : 1);
@@ -51,7 +58,7 @@ function UpdateVacation(): JSX.Element {
     const dateTimeMinValue = (new Date().toISOString().split(".")[0]).substring(0, 16);
 
     const handleSelectChange = (e: SyntheticEvent) => {
-        setSelectValue((e.target as HTMLOptionElement).value);
+        setSelectValue(parseInt((e.target as HTMLOptionElement).value));
     }
 
     // Function that make sure end cannot be b4 start time:
@@ -80,7 +87,7 @@ function UpdateVacation(): JSX.Element {
 
             <FormControl fullWidth>
                     <InputLabel>Destination</InputLabel>
-                    <Select label="Destination" defaultValue={selectValue} onChange={handleSelectChange} {...register("destinationId", {
+                    <Select label="Destination" value={selectValue} onChange={handleSelectChange} {...register("destinationId", {
                         required: {value: true, message: "Filed is required"},
                     })}>
                         {destinations.map(d => <MenuItem key={d.destinationId} value={d.destinationId}>{d.destinationCountry}, {d.destinationCity}</MenuItem>)}

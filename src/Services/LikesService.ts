@@ -1,5 +1,7 @@
 import axios from "axios";
 import LikeModel from "../Models/LikeModel";
+import { userLikesStore } from "../Redux/Store";
+import { getAllUserLikes } from "../Redux/UserLikesState";
 import config from "../Utils/Config";
 
 class LikesService {

@@ -14,11 +14,14 @@ function CarouselItem(props: CarouselItemProps): JSX.Element {
     const [vacation, setVacation] = useState<VacationModel>();
 
     useEffect(() => {
+        // Get vacations from redux:
         let vacations = vacationsStore.getState().vacations;
+        // set current vacation for each carousel item
         let currentVacation = vacations?.find(
             (v) => v.vacationId === props.vacationId
         );
         setVacation(currentVacation);
+        
         const unSub = vacationsStore.subscribe(() => {
             vacations = vacationsStore.getState().vacations;
             currentVacation = vacations.find(
@@ -48,7 +51,7 @@ function CarouselItem(props: CarouselItemProps): JSX.Element {
                     <span>${vacation?.price.toFixed(2)}</span>
                 </div>
                 <div className="Icons">
-                    <LikeAndCart vacationId={vacation && vacation.vacationId} />
+                    <LikeAndCart vacationId={vacation ? vacation.vacationId : null} />
                 </div>
             </div>
         </div>

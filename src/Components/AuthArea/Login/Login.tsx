@@ -1,4 +1,5 @@
 import { Button, ButtonGroup, TextField } from "@mui/material";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import CredentialsModel from "../../../Models/CredentialsModel";
@@ -7,6 +8,12 @@ import notificationService from "../../../Services/NotificationService";
 import "./Login.css";
 
 function Login(): JSX.Element {
+
+    const myRef = React.createRef<HTMLObjectElement>();
+
+    useEffect(() => {
+        myRef.current.scrollIntoView();
+    }, [])
 
     const {register, handleSubmit, formState, reset} = useForm<CredentialsModel>();
 
@@ -40,6 +47,7 @@ function Login(): JSX.Element {
                     }}>Clear</Button>
                 </ButtonGroup>
             </form>
+            <span ref={myRef}></span>
         </div>
     );
 }

@@ -39,6 +39,7 @@ function ResponsiveCarousel(): JSX.Element {
   useEffect(() => {
 
     (async()=>{
+
       let vacations = vacationsStore.getState().vacations;
       if (!vacations) {
         vacations = await vacationsService.getAllVacations();
@@ -52,7 +53,8 @@ function ResponsiveCarousel(): JSX.Element {
         const bestVacations = vacations.filter(v => v.price <= 150)
         const vacationsIdArr = bestVacations.map(v => v.vacationId);
         setVacationsId(vacationsIdArr);
-      })
+      });
+
     })();
 
     return () => { unSub(); }

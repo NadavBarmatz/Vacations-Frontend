@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import VacationModel from "../../../Models/VacationModel";
 import { setDestinationId } from "../../../Redux/destinationState";
-import { authStore, destinationStore } from "../../../Redux/Store";
+import { authStore, destinationStore, userLikesStore, vacationsStore } from "../../../Redux/Store";
+import { getAllUserLikes } from "../../../Redux/UserLikesState";
+import { getVacationsAction } from "../../../Redux/VacationsState";
+import authService from "../../../Services/AuthService";
+import likesService from "../../../Services/LikesService";
 import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
 import Loading from "../../SharedArea/Loading/Loading";
@@ -19,10 +23,27 @@ function VacationsByDestination(): JSX.Element {
 
     let destinationId = +useParams().id;
     
-    useEffect((async () => {
-        try{            
-            let vacationsArr = await vacationsService.getAllVacationsByDestinationId(destinationId);
-            setVacations(vacationsArr);
+    useEffect(() => {
+        try{
+            let vacationsArr:VacationModel[];
+            (async () => {
+                vacationsArr = await vacationsService.getAllVacationsByDestinationId(destinationId);
+                setVacations(vacationsArr);
+            })();
+
+            if(authService.isLoggedIn()){
+                // Get user likes array from redux:
+                let userLikesArr = userLikesStore.getState().userLikes;
+    
+                // If redux's user likes array is undefined and store to redux:
+                if(!userLikesArr){
+                    (async() => {
+                        userLikesArr = await likesService.getUserLikes();
+                        userLikesStore.dispatch(getAllUserLikes(userLikesArr))
+                    })();
+                }
+            }
+
 
             // every second search the store is changed by the search component and this component gets to re-render:
             const unSub = destinationStore.subscribe(async () => {
@@ -38,7 +59,7 @@ function VacationsByDestination(): JSX.Element {
             notificationService.error(err);
             navigate("/home");
         }
-    }) as any, [])
+    }, [])
 
     return (
         <div className="VacationsByDestination">

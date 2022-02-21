@@ -26,9 +26,17 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
             try{
     
                 if(authService.isLoggedIn()){
-    
-                    let userLikesArr = await likesService.getUserLikes();
-                    const isVacationLiked = userLikesArr.find(v => v.vacationId === props.vacationId);
+                    // first check if user likes array exist in redux:
+                    let userLikesArr = userLikesStore.getState().userLikes;
+
+                    // if not, get from database;
+                    if(!userLikesArr){
+                        userLikesArr = await likesService.getUserLikes();
+                    }
+                    
+                    userLikesStore.dispatch(getAllUserLikes(userLikesArr));
+
+                    const isVacationLiked = userLikesArr?.find(v => v.vacationId === props.vacationId);
                     if(isVacationLiked) setIsLiked(true);
                     else if (!isVacationLiked) setIsLiked(false);
     

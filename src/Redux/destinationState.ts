@@ -1,5 +1,6 @@
 export class DestinationState {
     destinationId: number;
+    
 }
 
 export enum DestinationActionType{

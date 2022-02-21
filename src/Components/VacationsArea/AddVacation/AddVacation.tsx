@@ -1,4 +1,5 @@
 import { Button, ButtonGroup, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import React from "react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +10,9 @@ import vacationsService from "../../../Services/VacationsService";
 import "./AddVacation.css";
 
 function AddVacation(): JSX.Element {
+
+    const myRef = React.createRef<HTMLObjectElement>();
+
 
     // Used to set select options and value:
     const [destinations, setDestinations] = useState<DestinationModel[]>([]);
@@ -23,6 +27,7 @@ function AddVacation(): JSX.Element {
 
     useEffect((async () => {
         try {
+            myRef.current.scrollIntoView();
             // Get destination from srvr:
             const destinationsArr = await vacationsService.getAllDestinations();
             // Sort by alphabet order:
@@ -112,6 +117,8 @@ function AddVacation(): JSX.Element {
                     }}>CLEAR</Button>
                 </ButtonGroup>
             </form>
+
+            <span ref={myRef}></span>
 			
         </div>
     );

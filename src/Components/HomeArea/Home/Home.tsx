@@ -35,7 +35,6 @@ function Home(): JSX.Element {
                 // If redux's user likes array is undefined and store to redux:
                 if(!userLikes) {
                     userLikes = await likesService.getUserLikes();
-                    userLikesStore.dispatch(getAllUserLikes(userLikes));
                 }
             }
             

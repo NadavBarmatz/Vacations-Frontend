@@ -5,8 +5,16 @@ import UserModel from "../../../Models/UserModel";
 import { useNavigate } from "react-router-dom";
 import authService from "../../../Services/AuthService";
 import notificationService from "../../../Services/NotificationService";
+import { useEffect } from "react";
+import React from "react";
 
 function Register(): JSX.Element {
+
+    const myRef = React.createRef<HTMLObjectElement>();
+
+    useEffect(() => {
+        myRef.current.scrollIntoView();
+    }, [])
 
     const {register, handleSubmit, formState, reset} = useForm<UserModel>()
 
@@ -48,6 +56,7 @@ function Register(): JSX.Element {
                     }}>Clear</Button>
                 </ButtonGroup>
             </form>
+            <span ref={myRef}></span>
         </div>
     );
 }

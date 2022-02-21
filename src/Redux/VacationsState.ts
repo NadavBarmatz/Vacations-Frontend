@@ -64,15 +64,7 @@ export function vacationsReducer(currentVacationsState: VacationsState = new Vac
         case VacationsActionType.DeleteVacation:
             const indexToDelete = newVacationsState.vacations.findIndex(v => v.vacationId === action.payload);
             newVacationsState.vacations.splice(indexToDelete, 1);
-            break;
-
-        // case VacationsActionType.IncreaseVacationLikesNumber:
-        //     newVacationsState.vacations[action.payload].vacationId++; // Payload indicates to vacationId
-        //     break;
-
-        // case VacationsActionType.DecreaseVacationLikesNumber:
-        //     newVacationsState.vacations[action.payload].vacationId--; // Payload indicates to vacationId
-        //     break;     
+            break;   
 
     }
 

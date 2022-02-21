@@ -20,14 +20,14 @@ import Page404 from "../Page404/Page404";
 
 function Routing(): JSX.Element {
 
-    // const [userRole, setUserRole] = useState<Role>(authStore.getState().user?.role);
+    const [userRole, setUserRole] = useState<Role>(authStore.getState().user?.role);
 
-    // useEffect(()=>{
-    //     const unsubscribe: Unsubscribe = authStore.subscribe(()=>{
-    //         setUserRole(authStore.getState().user?.role)
-    //     })
-    //     return()=>{unsubscribe()}   
-    // }, [])
+    useEffect(()=>{
+        const unsubscribe: Unsubscribe = authStore.subscribe(()=>{
+            setUserRole(authStore.getState().user?.role)
+        })
+        return()=>{unsubscribe()}   
+    }, [])
 
     return (
         <>
@@ -47,9 +47,9 @@ function Routing(): JSX.Element {
                 <Route path="/logout" element={<Logout />} />
 
                 {/* Admin pages */}
-                <Route path="/add-vacation" element={ authService.isAdmin() ? <AddVacation /> : (authService.isLoggedIn() ? <MustBeAdmin /> : <Navigate to="/login" />) } />
-                <Route path="/update-vacation/:id" element={ authService.isAdmin() ? <UpdateVacation /> : (authService.isLoggedIn() ? <MustBeAdmin /> : <Navigate to="/login" />) } />
-                <Route path="/charts" element={ authService.isAdmin() ? <LikesChart /> : (authService.isLoggedIn() ? <MustBeAdmin /> : <Navigate to="/login" />) } />
+                <Route path="/add-vacation" element={ userRole === Role.Admin ? <AddVacation /> : (authService.isLoggedIn() ? <MustBeAdmin /> : <Navigate to="/login" />) } />
+                <Route path="/update-vacation/:id" element={ userRole === Role.Admin ? <UpdateVacation /> : (authService.isLoggedIn() ? <MustBeAdmin /> : <Navigate to="/login" />) } />
+                <Route path="/charts" element={ userRole === Role.Admin ? <LikesChart /> : (authService.isLoggedIn() ? <MustBeAdmin /> : <Navigate to="/login" />) } />
 
                 {/* Default page */}
                 <Route path="/*" element={<Navigate to="/home" />} />
