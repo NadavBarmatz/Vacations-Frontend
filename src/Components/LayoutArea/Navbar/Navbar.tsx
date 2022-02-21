@@ -1,9 +1,11 @@
-import Logo from "../../../Assets/Images/Logo/logoWhite.png";
 import { NavLink } from "react-router-dom";
 import AuthMenu from "../../AuthArea/AuthMenu/AuthMenu";
 import "./Navbar.css";
 import { useEffect, useState } from "react";
 import SearchComponent from "../../SharedArea/SearchComponent/SearchComponent";
+import Navlinks from "./Navlinks/Navlinks";
+import RegularNavbar from "./RegularNavbar/RegularNavbar";
+import MobileNavbar from "./MobileNavbar/MobileNavbar";
 
 function Navbar(): JSX.Element {
 
@@ -17,18 +19,8 @@ function Navbar(): JSX.Element {
 
     return (
         <div className={scroll > (window.innerHeight / 2) ? "Navbar Scrolled" : "Navbar"}>
-			<div className="Logo">
-                <NavLink to="/home">
-                    <img src={Logo} />
-                </NavLink>
-            </div>
-            <div className="Links">
-                <NavLink to="/booking">BOOK A FLY</NavLink>
-                <NavLink to="/deals">DEALS</NavLink>
-                <NavLink to="/contact">CONTACT</NavLink>
-            </div>
-            <SearchComponent uniqueID="nav_" />
-            <AuthMenu />
+            <RegularNavbar />
+            <MobileNavbar />
         </div>
     );
 }

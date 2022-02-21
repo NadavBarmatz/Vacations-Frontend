@@ -1,39 +1,35 @@
 .Navbar {
-    padding: 1%;
-    height: 100%;
-    display: flex;
-    align-items: center;
+  padding: 1%;
+  height: 100%;
+  position: relative;
 }
 
 .Scrolled {
-    background-color: hsla(0, 0%, 0%, 0.4);
+  background-color: hsla(0, 0%, 0%, 0.4);
+}
+
+.Navbar .active {
+  text-decoration: underline;
 }
 
 .Navbar .Logo {
-    width: 3%;
+  width: 6%;
 }
 
 .Navbar .Logo  img {
-    width: 100%;
+  width: 100%;
 }
 
-.Navbar .Links {
-    width: 30%;
+@media only screen and (max-width: 800px){
+  .Navbar .RegularNavbar{
+    display: none;
+  }
+  
+  .Navbar .MobileNavbar {
     display: flex;
-    justify-content: space-around;
+  }
+  
 }
 
-.Navbar a {
-    color: var(--clr000);
-}
 
-.Navbar .SearchComponent {
-    position: relative;
-    left: 30%;
-}
-
-.Navbar .AuthMenu {
-    position: absolute;
-    right: 20px;
-}
 
