@@ -13,22 +13,11 @@
 }
 
 .Navbar .Logo {
-  width: 6%;
+  width: 3%;
 }
 
 .Navbar .Logo  img {
   width: 100%;
-}
-
-@media only screen and (max-width: 800px){
-  .Navbar .RegularNavbar{
-    display: none;
-  }
-  
-  .Navbar .MobileNavbar {
-    display: flex;
-  }
-  
 }
 
 
