@@ -10,8 +10,6 @@ export enum VacationsActionType {
     AddVacation = "AddVacation",
     UpdateVacation = "UpdateVacation",
     DeleteVacation = "DeleteVacation",
-    // IncreaseVacationLikesNumber = "IncreaseVacationLikesNumber",
-    // DecreaseVacationLikesNumber = "DecreaseVacationLikesNumber",
 }
 
 export interface VacationsAction {
@@ -34,14 +32,6 @@ export function updateVacationAction(vacation: VacationModel): VacationsAction {
 export function deleteVacationAction(idToDelete: number): VacationsAction {
     return { type: VacationsActionType.DeleteVacation, payload: idToDelete };
 }
-
-// export function increaseVacationLikesNumberAction(vacationId: number): VacationsAction {
-//     return {type: VacationsActionType.IncreaseVacationLikesNumber, payload: vacationId};
-// }
-
-// export function decreaseVacationLikesNumberAction(vacationId: number): VacationsAction {
-//     return {type: VacationsActionType.DecreaseVacationLikesNumber, payload: vacationId};
-// }
 
 export function vacationsReducer(currentVacationsState: VacationsState = new VacationsState(), action: VacationsAction): VacationsState {
     const newVacationsState = {...currentVacationsState};

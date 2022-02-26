@@ -35,21 +35,21 @@ class AuthMenu extends Component<{}, AuthMenuState> {
             <div className="AuthMenu">
 
                 {!authService.isLoggedIn() &&
-                    <>
+                    <div>
                         <span>Hello Guest</span>
                         <span> | </span>
                         <NavLink to="/login">Login</NavLink>
                         <span> | </span>
                         <NavLink to="/register">Register</NavLink>
-                    </>
+                    </div>
                 }
 
                 {authService.isLoggedIn() &&
-                    <>
+                    <div>
                         <span>Hello {this.state?.user?.username}</span>
                         <span> | </span>
                         <NavLink to="logout">Logout</NavLink>
-                    </>
+                    </div>
                 }
 
                 {authService.isAdmin() &&

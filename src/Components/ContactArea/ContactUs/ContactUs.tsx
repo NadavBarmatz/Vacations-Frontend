@@ -14,7 +14,7 @@ function ContactUs(): JSX.Element {
     const myRef = createRef<HTMLFormElement>();
 
     useEffect(()=>{
-        myRef.current.scrollIntoView();
+        myRef.current?.scrollIntoView();
     },[])
 
     const user = authStore.getState().user;
@@ -35,21 +35,21 @@ function ContactUs(): JSX.Element {
 
             {user ? 
                 <div>
-                    <h1>CONTACT US</h1>
+                    <h2>CONTACT US</h2>
 
                     <form ref={myRef} onSubmit={handleSubmit(submit)}>
                         
-                        <TextField label="Subject" className="TextBox" {...register("subject", {
+                        <TextField variant="filled" label="Subject" className="TextBox" {...register("subject", {
                             required: {value: true, message: "Field is required"}
                         })} />
                         <span>{formState.errors.subject?.message}</span>
 
-                        <TextField label="Email" className="TextBox" {...register("email", {
+                        <TextField variant="filled" label="Email" className="TextBox" {...register("email", {
                             required: {value: true, message: "Field is required"}
                         })} />
                         <span>{formState.errors.email?.message}</span>
 
-                        <TextField label="Message" className="TextBox" multiline={true} minRows={5} {...register("message", {
+                        <TextField variant="filled" label="Message" className="TextBox" multiline={true} minRows={5} {...register("message", {
                             required: {value: true, message: "Field is required"}
                         })} />
                         <span>{formState.errors.message?.message}</span>

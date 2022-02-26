@@ -45,10 +45,10 @@ function CarouselItem(props: CarouselItemProps): JSX.Element {
             </NavLink>
             <div className="Description">
                 <div className="Country">
-                    <h3>{vacation?.country}</h3>
+                    <span>{vacation?.country}</span>
                 </div>
                 <div className="Price">
-                    <span>${vacation?.price.toFixed(2)}</span>
+                    <p>${vacation?.price.toFixed(2)}</p>
                 </div>
                 <div className="Icons">
                     <LikeAndCart vacationId={vacation ? vacation.vacationId : null} />

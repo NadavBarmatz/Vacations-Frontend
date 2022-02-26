@@ -9,7 +9,7 @@ function Header(): JSX.Element {
     return (
         <div className="Header">
             
-			<h1>WHERE YOU WANT TO GO?</h1>
+			<h1>WHERE DO YOU WANT TO GO?</h1>
         
             <SearchComponent uniqueID="header_" />
         

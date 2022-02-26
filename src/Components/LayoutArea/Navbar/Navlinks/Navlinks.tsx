@@ -14,12 +14,14 @@ function Navlinks(): JSX.Element {
     return (
         <div className="Navlinks">
 			<div className="Links">
-                <NavLink onClick={handleClick} to="/booking">BOOK A FLY</NavLink>
+                <NavLink onClick={handleClick} to="/home">Home</NavLink>
                 <NavLink onClick={handleClick} to="/deals">DEALS</NavLink>
                 <NavLink onClick={handleClick} to="/contact">CONTACT</NavLink>
             </div>
-            <SearchComponent uniqueID="nav_" />
-            <AuthMenu />
+            <div className="LeftNavSide">
+                <SearchComponent uniqueID="nav_" />
+                <AuthMenu />
+            </div>
         </div>
     );
 }

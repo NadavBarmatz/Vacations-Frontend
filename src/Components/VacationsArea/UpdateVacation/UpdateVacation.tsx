@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import DestinationModel from "../../../Models/DestinationModel";
 import VacationModel from "../../../Models/VacationModel";
 import { vacationsStore } from "../../../Redux/Store";
+import formService from "../../../Services/FormService";
 import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
 import "./UpdateVacation.css";
@@ -19,7 +20,7 @@ function UpdateVacation(): JSX.Element {
     const [selectValue, setSelectValue] = useState<number>(0);
 
     // Used to validate meeting end time is not before start time:
-    const [startTime, setStartTime] = useState<string>("");
+    const [endTime, setEndTime] = useState<string>("");
 
     const {register, handleSubmit, reset, formState, setValue} = useForm<VacationModel>();
 
@@ -35,8 +36,10 @@ function UpdateVacation(): JSX.Element {
 
             // setting the values of the form with data from the server:
             setValue("description", currentVacation.description);
-            setValue("start", currentVacation.start.split(" ")[0]+"T"+currentVacation.start.split(" ")[1]);
-            setValue("end", currentVacation.end.split(" ")[0]+"T"+currentVacation.end.split(" ")[1]);
+            // Substring to match the date-time input format:
+            setValue("start", currentVacation.start.substring(0, 16));
+            // Substring to match the date-time input format:
+            setValue("end", currentVacation.end.substring(0, 16));
             setValue("price", currentVacation.price);
             setValue("destinationId", currentVacation.destinationId)
 
@@ -55,17 +58,12 @@ function UpdateVacation(): JSX.Element {
     }) as any, [])
 
     // Minimum value for dateTime inputs
-    const dateTimeMinValue = (new Date().toISOString().split(".")[0]).substring(0, 16);
+    const dateTimeMinValue = formService.dateTimeMinValue;
 
-    const handleSelectChange = (e: SyntheticEvent) => {
-        setSelectValue(parseInt((e.target as HTMLOptionElement).value));
-    }
+    const handleSelectChange = (e: SyntheticEvent) => formService.handleSelectChange(e, setSelectValue)
 
     // Function that make sure end cannot be b4 start time:
-    const setEndValidation = (e: SyntheticEvent) => {
-        const time = (e.target as HTMLInputElement).value;
-        setStartTime(time);        
-    }
+    const setEndValidation = (e: SyntheticEvent) => formService.handleEndTimeValidation(e, setEndTime);
 
     async function submit(vacation: VacationModel) {
         try{
@@ -108,7 +106,7 @@ function UpdateVacation(): JSX.Element {
                 })} />
                 <span>{formState.errors.start?.message}</span>
 
-                <TextField type="datetime-local" inputProps={{min: startTime ? startTime : dateTimeMinValue}} label="End" className="TextBox" {...register("end",{
+                <TextField type="datetime-local" inputProps={{min: endTime ? endTime : dateTimeMinValue}} label="End" className="TextBox" {...register("end",{
                     required: {value: true, message: "Filed is required"},
                 })} />
                 <span>{formState.errors.end?.message}</span>

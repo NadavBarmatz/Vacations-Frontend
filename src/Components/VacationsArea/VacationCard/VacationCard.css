@@ -1,9 +1,10 @@
 .VacationCard {
     width: inherit;
-    border: 2px solid var(--clr600);
+    background-color:  var(--clr400);
     padding: 20px;
     display: flex;
     position: relative;
+    gap: 15px;
 }
 
 .VacationCard .Image {
@@ -29,6 +30,15 @@
 .VacationCard .Time {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+}
+
+.VacationCard .Time svg{
+    color: var(--clr600);
+}
+
+.VacationCard .Time p {
+    padding: 0;
+    margin: 0;
 }
 
 .VacationCard div[role="group"] {

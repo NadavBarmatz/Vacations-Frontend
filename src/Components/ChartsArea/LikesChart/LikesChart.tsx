@@ -32,9 +32,10 @@ function LikesChart(): JSX.Element {
         <div className="LikesChart">
             <h1>Vacations Likes Tracking</h1>
             {data ? <div>
-                <VictoryChart  domainPadding={25}>
-                    <VictoryStack colorScale="warm">
+                <VictoryChart domainPadding={25}>
+                    <VictoryStack>
                         <VictoryBar
+                            style={{data: {fill: 'hsl(194, 96%, 22%)'}}}
                             labelComponent={<VictoryTooltip/>}
                             categories={xAxisNaming}
                             data={data}

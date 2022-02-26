@@ -5,16 +5,13 @@
         width: 5%;
     }
 
+    .Navlinks .SearchComponent,
     .Navbar .RegularNavbar{
       display: none;
     }
     
     .Navbar .MobileNavbar {
       display: flex;
-    }
-
-    .Navlinks .SearchComponent { 
-        display: none;
     }
 
     .Scrolled {
@@ -35,5 +32,14 @@
     .NowOrNever .VacationCard .Info {
         width: 100%;
     }
+
+    /* Form width query */
+    .UpdateVacation form,
+    .AddVacation form,
+    .Register form,
+    .Login form,
+    .ContactUs form {
+        width: 80vw;
+    }
     
-  }
+}

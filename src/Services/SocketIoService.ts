@@ -14,13 +14,17 @@ class SocketIoService {
         this.socket = io(config.urls.socketServer);
 
         this.socket.on("admin-add-vacation", (vacation: VacationModel) => {
-            vacationsStore.dispatch(addVacationAction(vacation));
+            if(vacationsStore.getState().vacations){
+                vacationsStore.dispatch(addVacationAction(vacation));
+            }
             console.log("admin added vacation");
             
         });
 
         this.socket.on("admin-update-vacation", (vacation: VacationModel) => {
-            vacationsStore.dispatch(updateVacationAction(vacation));
+            if(vacationsStore.getState().vacations){
+                vacationsStore.dispatch(updateVacationAction(vacation));
+            }
         });
 
         this.socket.on("admin-delete-vacation", (id: number) => {
@@ -38,7 +42,9 @@ class SocketIoService {
         })
 
         this.socket.on("vacation-likes-update", (vacation: VacationModel) => {
-            vacationsStore.dispatch(updateVacationAction(vacation));
+            if(vacationsStore.getState().vacations){
+                vacationsStore.dispatch(updateVacationAction(vacation));
+            }
         });
 
     }

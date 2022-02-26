@@ -15,22 +15,25 @@
 
 .Header > h1 {
     color: var(--clr000);
-    font-size: min(4vw, 3em);
+    font-size: min(4vw, 3.5em);
     position: absolute;
     top: 25%;
     left: 50%;
     transform: translateX(-50%);
+    width: 100%;
 }
 
 .Header > .SearchComponent {
-    width: 130%;
+    width: 170%;
+    position: relative;
+    bottom: 5%;
 }
 
 @media only screen and (max-width: 900px) {
     .Header > .SearchComponent {
-        position: relative;
-        bottom: 30%;
-        left: 10%;
+        /* bottom: 0%; */
+        width: 80%;
+        left: 25%;
     }
 
     .Header > h1 {

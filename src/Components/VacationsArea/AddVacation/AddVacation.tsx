@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import DestinationModel from "../../../Models/DestinationModel";
 import VacationModel from "../../../Models/VacationModel";
+import formService from "../../../Services/FormService";
 import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
 import "./AddVacation.css";
@@ -19,7 +20,7 @@ function AddVacation(): JSX.Element {
     const [selectValue, setSelectValue] = useState<string>("");
 
     // Used to validate meeting end time is not before start time:
-    const [startTime, setStartTime] = useState<string>("");
+    const [endTime, setEndTime] = useState<string>("");
 
     const {register, handleSubmit, reset, formState} = useForm<VacationModel>();
 
@@ -40,7 +41,7 @@ function AddVacation(): JSX.Element {
     }) as any, [])
 
     // Minimum value for dateTime inputs
-    const dateTimeMinValue = (new Date().toISOString().split(".")[0]).substring(0, 16);
+    const dateTimeMinValue = formService.dateTimeMinValue;
 
     const submit = async (vacation: VacationModel) => {
         try{
@@ -54,15 +55,10 @@ function AddVacation(): JSX.Element {
 
     }
 
-    const handleSelectChange = (e: SyntheticEvent) => {
-        setSelectValue((e.target as HTMLOptionElement).value);
-    }
+    const handleSelectChange = (e: SyntheticEvent) => formService.handleSelectChange(e, setSelectValue);
 
     // Function that make sure end cannot be b4 start time:
-    const setEndValidation = (e: SyntheticEvent) => {
-        const time = (e.target as HTMLInputElement).value;
-        setStartTime(time);        
-    }
+    const setEndValidation = (e: SyntheticEvent) => formService.handleEndTimeValidation(e, setEndTime);
 
     return (
         <div className="AddVacation">
@@ -93,7 +89,7 @@ function AddVacation(): JSX.Element {
                 })} />
                 <span>{formState.errors.start?.message}</span>
 
-                <TextField type="datetime-local" inputProps={{min: startTime ? startTime : dateTimeMinValue}} label="End" className="TextBox" {...register("end",{
+                <TextField type="datetime-local" inputProps={{min: endTime ? endTime : dateTimeMinValue}} label="End" className="TextBox" {...register("end",{
                     required: {value: true, message: "Filed is required"},
                 })} />
                 <span>{formState.errors.end?.message}</span>
