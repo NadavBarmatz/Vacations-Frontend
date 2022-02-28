@@ -1,10 +1,11 @@
 @media only screen and (max-width: 900px){
-    /* Navbar Queries */
+    /* Logos Queries */
     .Footer .FooterLogo,
     .Navbar .Logo {
         width: 5%;
     }
 
+    /* Navbar Queries */
     .Navlinks .SearchComponent,
     .Navbar .RegularNavbar{
       display: none;

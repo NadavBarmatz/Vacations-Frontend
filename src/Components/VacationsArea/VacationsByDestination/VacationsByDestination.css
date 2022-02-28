@@ -19,3 +19,18 @@
 .VacationsByDestination > .VacationCard > div {
     width: 80%;
 }
+
+@media only screen and (max-width: 1000px){
+    .VacationsByDestination > .VacationCard {
+        width: 90%;
+        /* flex-direction: row; */
+    }
+
+    .VacationsByDestination > .VacationCard > div {
+        width: 60%;
+    }
+
+    .VacationsByDestination > .VacationCard > div:nth-child(2) {
+        width: 90%;
+    }
+}

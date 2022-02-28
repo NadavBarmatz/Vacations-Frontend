@@ -42,7 +42,7 @@ function Register(): JSX.Element {
                 
                 <TextField label="Username" {...register("username")} className="TextBox" />
                 
-                <TextField label="Password" {...register("password")} className="TextBox" />
+                <TextField label="Password" type='password' {...register("password")} className="TextBox" />
                 
                 <ButtonGroup className="TextBox">
                     <Button fullWidth type="submit" color="success">Register</Button>

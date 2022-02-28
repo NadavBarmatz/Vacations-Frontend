@@ -51,7 +51,7 @@ function CarouselItem(props: CarouselItemProps): JSX.Element {
                     <p>${vacation?.price.toFixed(2)}</p>
                 </div>
                 <div className="Icons">
-                    <LikeAndCart vacationId={vacation ? vacation.vacationId : null} />
+                    <LikeAndCart vacationId={props.vacationId} />
                 </div>
             </div>
         </div>

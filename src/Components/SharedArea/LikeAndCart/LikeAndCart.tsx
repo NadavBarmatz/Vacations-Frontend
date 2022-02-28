@@ -4,7 +4,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useEffect, useState } from "react";
 import likesService from "../../../Services/LikesService";
-import { userLikesStore, vacationsStore } from "../../../Redux/Store";
+import { authStore, userLikesStore, vacationsStore } from "../../../Redux/Store";
 import { getAllUserLikes } from "../../../Redux/UserLikesState";
 import { Unsubscribe } from "redux";
 import authService from "../../../Services/AuthService";
@@ -19,6 +19,8 @@ interface LikeAndCartProps {
 function LikeAndCart(props: LikeAndCartProps): JSX.Element {
     
     const [isLiked, setIsLiked] = useState<boolean>(false);
+
+    const user = authStore.getState().user;
 
     let unSub : Unsubscribe;
     useEffect(() => {

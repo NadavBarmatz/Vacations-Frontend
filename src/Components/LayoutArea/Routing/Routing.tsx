@@ -52,7 +52,7 @@ function Routing(): JSX.Element {
                 <Route path="/charts" element={ userRole === Role.Admin ? <LikesChart /> : (authService.isLoggedIn() ? <MustBeAdmin /> : <Navigate to="/login" />) } />
 
                 {/* Default page */}
-                <Route path="/*" element={<Navigate to="/home" />} />
+                <Route path="/" element={<Navigate to="/home" />} />
 
                 {/* Page not found route */}
                 <Route path="*" element={<Page404 />} />

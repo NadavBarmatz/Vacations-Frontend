@@ -8,5 +8,10 @@
 
 .MustBeAdmin a {
 	font-size: 1.5em;
+    transition: all 250ms;
+}
+
+.MustBeAdmin a:hover {
+    font-size: 1.8em;
 }
 

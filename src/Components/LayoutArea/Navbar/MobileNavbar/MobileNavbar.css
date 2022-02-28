@@ -26,6 +26,10 @@
     background-color: var(--clr600);
 }
 
+.MobileNavbar .LeftNavSide {
+    right: 20%;
+}
+
 .MobileNavbar .AuthMenu {
     position: relative;
     margin: auto;

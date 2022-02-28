@@ -8,4 +8,9 @@
 
 .PleaseLogIn a {
 	font-size: 1.5em;
+    transition: all 250ms;
+}
+
+.PleaseLogIn a:hover {
+    font-size: 1.8em;
 }

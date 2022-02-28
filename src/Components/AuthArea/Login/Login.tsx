@@ -36,7 +36,7 @@ function Login(): JSX.Element {
 
             <form onSubmit={handleSubmit(submit)}>
                 <TextField label="Username" {...register("username")} className="TextBox" />
-                <TextField label="Password" {...register("password")} className="TextBox" />
+                <TextField label="Password" type='password' {...register("password")} className="TextBox" />
                 <ButtonGroup className="TextBox">
                     <Button fullWidth type="submit" color="success" >Login</Button>
                     <Button fullWidth color="error" onClick={() => {

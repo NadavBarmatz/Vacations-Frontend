@@ -4,7 +4,8 @@ import VacationModel from '../Models/VacationModel';
 import config from '../Utils/Config';
 import { addVacationAction, deleteVacationAction, updateVacationAction } from '../Redux/VacationsState';
 import LikeModel from '../Models/LikeModel';
-import { dislikeAction, likeAction } from '../Redux/UserLikesState';
+import { dislikeAction, getAllUserLikes, likeAction } from '../Redux/UserLikesState';
+import likesService from './LikesService';
 
 class SocketIoService {
 
@@ -33,12 +34,14 @@ class SocketIoService {
 
         });
 
-        this.socket.on("user-like-vacation", (like: LikeModel) => {
-            userLikesStore.dispatch(likeAction(like));
+        this.socket.on("user-like-vacation", async (like: LikeModel) => {
+            const userLikes = await likesService.getUserLikes();
+            userLikesStore.dispatch(getAllUserLikes(userLikes));
         })
 
-        this.socket.on("user-dislike-vacation", (like: LikeModel) => {
-            userLikesStore.dispatch(dislikeAction(like));
+        this.socket.on("user-dislike-vacation", async (like: LikeModel) => {
+            const userLikes = await likesService.getUserLikes();
+            userLikesStore.dispatch(getAllUserLikes(userLikes));
         })
 
         this.socket.on("vacation-likes-update", (vacation: VacationModel) => {

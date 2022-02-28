@@ -1,6 +1,7 @@
 import { Button, ButtonGroup, TextField } from "@mui/material";
 import { createRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import MessageModel from "../../../Models/MessageModel";
 import { authStore } from "../../../Redux/Store";
 import notificationService from "../../../Services/NotificationService";
@@ -10,6 +11,8 @@ import "./ContactUs.css";
 function ContactUs(): JSX.Element {
 
     const {register, handleSubmit, formState, reset} = useForm<MessageModel>();
+
+    const navigate = useNavigate();
 
     const myRef = createRef<HTMLFormElement>();
 
@@ -24,6 +27,7 @@ function ContactUs(): JSX.Element {
             // Implement here email sending to admin mail.
 
             notificationService.success("Your message has been sent successfully");
+            navigate("/home");
         }
         catch(err: any) {
             notificationService.error(err);
