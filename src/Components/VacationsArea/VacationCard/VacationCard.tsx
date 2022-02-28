@@ -50,11 +50,11 @@ function VacationCard(props: VacationCardProps): JSX.Element {
                 <div className="Time">
                     <div>
                         <EventNoteIcon />
-                        <p>{new Date(props.vacation?.start).toLocaleDateString()}</p>
+                        <p>{new Date(props.vacation?.start).toLocaleDateString('en-GB')}</p>
                     </div>
                     <div>
                         <EventNoteIcon />
-                        <p>{new Date(props.vacation?.end).toLocaleDateString()}</p>
+                        <p>{new Date(props.vacation?.end).toLocaleDateString('en-GB')}</p>
                     </div>
                     <div>
                         <ScheduleIcon />

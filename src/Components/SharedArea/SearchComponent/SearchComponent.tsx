@@ -1,4 +1,4 @@
-import { createRef, SyntheticEvent, useState } from "react";
+import { createRef, SyntheticEvent, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DestinationModel from "../../../Models/DestinationModel";
 import autoSearchService from "../../../Services/autoSearchService";
@@ -12,9 +12,12 @@ interface SearchComponentProps {
 
 function SearchComponent(props: SearchComponentProps): JSX.Element {
 
+    // Used extract the value from input element when searching:
+    const inputRef = useRef<HTMLInputElement>();
 
     const navigate = useNavigate();
 
+    // Destinations array used inside the datalist element
     const [destinations, setDestinations] = useState<DestinationModel[]>([]);
 
     const autoComplete = async (e: SyntheticEvent) => {
@@ -29,13 +32,17 @@ function SearchComponent(props: SearchComponentProps): JSX.Element {
 
     const searchVacation = async (e: SyntheticEvent) => {
         try{
-            // execute on "Enter" key down:
-            if((e as any).keyCode === 13){
-                // if destinations is empty, throw Error message:
+            // Execute on "Enter" key down or clicking on the search icon:
+            if((e as any).keyCode === 13 || e.type === "click"){
+                
+                // If destinations is empty, meaning there are no matches, throw Error message:
                 if(destinations.length === 0) throw new Error("Invalid search, or the required destination is not available.");
 
-                const destination = autoSearchService.searchVacation(e, destinations)
-                navigate("/vacations/list-by-destination/" + destination.destinationId)
+                // get the correct destination:
+                const destination = autoSearchService.searchVacation(inputRef.current.value, destinations);
+                
+                // Navigate to vacation list by destination:
+                navigate("/vacations/list-by-destination/" + destination.destinationId);
             }
         }
         catch(err: any){
@@ -46,8 +53,8 @@ function SearchComponent(props: SearchComponentProps): JSX.Element {
 
     return (
         <div className="SearchComponent">
-			 <SearchIcon />
-                <input type="text" list={props.uniqueID} onChange={autoComplete} autoComplete="off" onKeyDown={searchVacation} />
+			 <SearchIcon onClick={searchVacation} />
+                <input type="text" list={props.uniqueID} ref={inputRef} onChange={autoComplete} autoComplete="off" onKeyDown={searchVacation} />
                 <datalist id={props.uniqueID}>
                     { destinations?.map(d => <option key={d.destinationId} value={`${d.destinationCity}, ${d.destinationCountry}`} />)}
                 </datalist>

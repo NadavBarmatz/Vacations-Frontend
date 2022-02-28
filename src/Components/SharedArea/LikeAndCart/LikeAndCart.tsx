@@ -11,6 +11,7 @@ import authService from "../../../Services/AuthService";
 import vacationsService from "../../../Services/VacationsService";
 import { updateVacationAction } from "../../../Redux/VacationsState";
 import notificationService from "../../../Services/NotificationService";
+import { useNavigate } from "react-router-dom";
 
 interface LikeAndCartProps {
     vacationId: number;
@@ -18,6 +19,8 @@ interface LikeAndCartProps {
 
 function LikeAndCart(props: LikeAndCartProps): JSX.Element {
     
+    const navigate = useNavigate();
+
     const [isLiked, setIsLiked] = useState<boolean>(false);
 
     const user = authStore.getState().user;
@@ -62,6 +65,7 @@ function LikeAndCart(props: LikeAndCartProps): JSX.Element {
     }, [])
 
     const likeIt = async () => {
+        if(!authService.isLoggedIn()) return navigate("/login");
         try {
             await likesService.likeVacation(props.vacationId);
             const vacation = await vacationsService.getOneVacation(props.vacationId);

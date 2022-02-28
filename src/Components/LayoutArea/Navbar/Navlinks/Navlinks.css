@@ -17,6 +17,11 @@
 
 .Navlinks a {
     color: var(--clr000);
+    transition: all 500ms;
+}
+
+.Navlinks a:hover {
+    font-size: 1.2em;
 }
 
 .Navlinks .SearchComponent {

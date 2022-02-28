@@ -74,7 +74,7 @@ function VacationsList(): JSX.Element {
     return (
         <div className="VacationsList">
             <h2>ALL VACATIONS</h2>
-            {vacations ? vacations.map(v => <VacationCard key={v.vacationId} vacation={v} user={user} />) : <Loading />}
+            {vacations.length > 0 ? vacations.map(v => <VacationCard key={v.vacationId} vacation={v} user={user} />) : <Loading />}
         </div>
     );
 }

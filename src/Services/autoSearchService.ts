@@ -14,8 +14,8 @@ class AutoSearchService {
         return destinations;
     }
 
-    public searchVacation(e: SyntheticEvent, destinationState: DestinationModel[]): DestinationModel {
-        const target = (e.target as HTMLInputElement).value.toLowerCase().split(",")[0];
+    public searchVacation(inputValue: string, destinationState: DestinationModel[]): DestinationModel {
+        const target = inputValue.toLowerCase().split(",")[0];
         const destination =  destinationState.find( d => d.destinationCity.toLowerCase().includes(target) 
         || d.destinationCountry.toLowerCase().includes(target) );
         

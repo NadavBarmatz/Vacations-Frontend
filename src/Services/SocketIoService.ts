@@ -4,7 +4,7 @@ import VacationModel from '../Models/VacationModel';
 import config from '../Utils/Config';
 import { addVacationAction, deleteVacationAction, updateVacationAction } from '../Redux/VacationsState';
 import LikeModel from '../Models/LikeModel';
-import { dislikeAction, getAllUserLikes, likeAction } from '../Redux/UserLikesState';
+import { getAllUserLikes } from '../Redux/UserLikesState';
 import likesService from './LikesService';
 
 class SocketIoService {
