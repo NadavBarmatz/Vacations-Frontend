@@ -13,6 +13,9 @@ function AdminActions(): JSX.Element {
                     <NavLink to="add-vacation">Add Vacation</NavLink>
                 </MenuItem>
                 <MenuItem value={2}>
+                    <NavLink to="add-destination">Add Destination</NavLink>
+                </MenuItem>
+                <MenuItem value={3}>
                     <NavLink to="/charts">CHARTS</NavLink>
                 </MenuItem>
             </Select>

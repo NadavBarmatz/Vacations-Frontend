@@ -3,6 +3,7 @@ import LikeModel from "../Models/LikeModel";
 import { userLikesStore } from "../Redux/Store";
 import { getAllUserLikes } from "../Redux/UserLikesState";
 import config from "../Utils/Config";
+import authService from "./AuthService";
 
 class LikesService {
 
@@ -22,6 +23,20 @@ class LikesService {
         return userLikes;
     }
 
+    public async makeSureUserLikesIsInRedux(): Promise<void> {
+        if(authService.isLoggedIn()) {
+            // Get user likes array from redux:
+                let userLikesArr = userLikesStore.getState().userLikes;
+    
+                // If redux's user likes array is undefined and store to redux:
+                if(!userLikesArr){
+                    (async() => {
+                        userLikesArr = await this.getUserLikes();
+                        userLikesStore.dispatch(getAllUserLikes(userLikesArr))
+                    })();
+                }
+        }
+    }
 
 }
 

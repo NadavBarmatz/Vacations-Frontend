@@ -18,8 +18,6 @@ class SocketIoService {
             if(vacationsStore.getState().vacations){
                 vacationsStore.dispatch(addVacationAction(vacation));
             }
-            console.log("admin added vacation");
-            
         });
 
         this.socket.on("admin-update-vacation", (vacation: VacationModel) => {
@@ -30,8 +28,6 @@ class SocketIoService {
 
         this.socket.on("admin-delete-vacation", (id: number) => {
             vacationsStore.dispatch(deleteVacationAction(id));
-            console.log("admin deleted vacation");
-
         });
 
         this.socket.on("user-like-vacation", async (like: LikeModel) => {

@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import DestinationModel from "../../../Models/DestinationModel";
 import VacationModel from "../../../Models/VacationModel";
 import { vacationsStore } from "../../../Redux/Store";
+import destinationsService from "../../../Services/DestinationsService";
 import formService from "../../../Services/FormService";
 import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
@@ -47,7 +48,7 @@ function UpdateVacation(): JSX.Element {
             setSelectValue(currentVacation.destinationId);
 
             // Get destination from server:
-            const destinationsArr = await vacationsService.getAllDestinations();
+            const destinationsArr = await destinationsService.getAllDestinations();
             // Sort by alphabet order:
             destinationsArr.sort((a, b) => a.destinationCountry < b.destinationCountry ? -1 : 1);
             setDestinations(destinationsArr);

@@ -5,13 +5,6 @@ import config from "../Utils/Config";
 
 class VacationsService {
 
-    public async getAllDestinations(): Promise<DestinationModel[]> {
-        const response = await axios.get<DestinationModel[]>(config.urls.destinations);
-        const destinations = response.data;
-        return destinations;
-    }
-
-
     public async getAllVacations(): Promise<VacationModel[]> {        
         const response = await axios.get<VacationModel[]>(config.urls.vacations);
         const vacations = response.data;

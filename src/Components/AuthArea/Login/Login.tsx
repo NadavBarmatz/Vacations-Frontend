@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import CredentialsModel from "../../../Models/CredentialsModel";
 import authService from "../../../Services/AuthService";
 import notificationService from "../../../Services/NotificationService";
@@ -46,6 +46,12 @@ function Login(): JSX.Element {
                         })
                     }}>Clear</Button>
                 </ButtonGroup>
+                <div className="RegisterNow">
+                    <span>
+                        Dont have an account?
+                        <NavLink to="/register"> register now</NavLink>
+                    </span>
+                </div>
             </form>
             <span ref={myRef}></span>
         </div>

@@ -11,6 +11,7 @@ import LikesChart from "../../ChartsArea/LikesChart/LikesChart";
 import ContactUs from "../../ContactArea/ContactUs/ContactUs";
 import Home from "../../HomeArea/Home/Home";
 import MustBeAdmin from "../../SharedArea/MustBeAdmin/MustBeAdmin";
+import AddDestination from "../../VacationsArea/AddDestination/AddDestination";
 import AddVacation from "../../VacationsArea/AddVacation/AddVacation";
 import UpdateVacation from "../../VacationsArea/UpdateVacation/UpdateVacation";
 import VacationDetails from "../../VacationsArea/VacationDetails/VacationDetails";
@@ -36,10 +37,10 @@ function Routing(): JSX.Element {
                 <Route path="/home" element={<Home />} />
 
 
-                <Route path="/vacation/:id" element={<VacationDetails />} />
-                <Route path="/vacations/list-by-destination/:id" element={<VacationsByDestination />} />
-                <Route path="/contact" element={<ContactUs />} />
-                <Route path="/deals" element={<VacationsList />} />
+                <Route path="/vacation/:id" element={authService.isLoggedIn() ? <VacationDetails /> : <Navigate to="/login"/>} />
+                <Route path="/vacations/list-by-destination/:id" element={authService.isLoggedIn() ? <VacationsByDestination /> : <Navigate to="/login"/>} />
+                <Route path="/contact" element={authService.isLoggedIn() ? <ContactUs /> : <Navigate to="/login"/>} />
+                <Route path="/deals" element={authService.isLoggedIn() ? <VacationsList /> : <Navigate to="/login"/>} />
 
                 {/* Auth pages */}
                 <Route path="/register" element={<Register />} />
@@ -47,6 +48,7 @@ function Routing(): JSX.Element {
                 <Route path="/logout" element={<Logout />} />
 
                 {/* Admin pages */}
+                <Route path="/add-destination" element={ userRole === Role.Admin ? <AddDestination /> : (authService.isLoggedIn() ? <MustBeAdmin /> : <Navigate to="/login" />) } />
                 <Route path="/add-vacation" element={ userRole === Role.Admin ? <AddVacation /> : (authService.isLoggedIn() ? <MustBeAdmin /> : <Navigate to="/login" />) } />
                 <Route path="/update-vacation/:id" element={ userRole === Role.Admin ? <UpdateVacation /> : (authService.isLoggedIn() ? <MustBeAdmin /> : <Navigate to="/login" />) } />
                 <Route path="/charts" element={ userRole === Role.Admin ? <LikesChart /> : (authService.isLoggedIn() ? <MustBeAdmin /> : <Navigate to="/login" />) } />
