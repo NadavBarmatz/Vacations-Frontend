@@ -1,12 +1,27 @@
 .Login form {
 	width: 45%;
     margin: auto;
-    padding: 5%;
-    border: 1px solid var(--clr400);
+    padding: 2%;
 }
 
 .Login .TextBox {
     width: 100%;
     box-sizing: border-box;
     margin: 10px 0;
+    background-color: var(--clr400);
+}
+
+.TextBox label,
+.TextBox textarea,
+.TextBox input {
+    color: var(--clr600);
+}
+
+.Login form span {
+    color: red;
+}
+
+.Login .RegisterNow {
+    text-align: left;
+    margin: 30px 0px;
 }

@@ -8,6 +8,9 @@ import config from "../../../../Utils/Config";
 import Loading from "../../../SharedArea/Loading/Loading";
 import { vacationsStore } from "../../../../Redux/Store";
 import CarouselNameItem from "../CarouselNameItem/CarouselNameItem";
+import notificationService from "../../../../Services/NotificationService";
+import DestinationModel from "../../../../Models/DestinationModel";
+import destinationsService from "../../../../Services/DestinationsService";
 
 function ResponsiveNameCarousel(): JSX.Element {
 
@@ -31,21 +34,15 @@ function ResponsiveNameCarousel(): JSX.Element {
     }
   };
 
-  const [vacations, setVacations] = useState<VacationModel[]>([]);
+  const [vacations, setVacations] = useState<DestinationModel[]>([]);
 
   useEffect((async () => {
     try{
-      const vacationsFromRedux = vacationsStore.getState().vacations;
-      if(!vacationsFromRedux){
-        const vacations = await vacationsService.getAllVacations();
+        const vacations = await destinationsService.getAllDestinations();
         setVacations(vacations);
-      }
-      else{
-        setVacations(vacationsFromRedux);
-      }
     }
     catch(err: any) {
-      alert(err.message);
+      notificationService.error(err);
     }
   }) as any, [])
     
@@ -55,7 +52,7 @@ function ResponsiveNameCarousel(): JSX.Element {
         vacations.length === 0 && <Loading />
           ||
         <Carousel infinite={true} responsive={responsive}>
-          {vacations.map(v => <div key={v.vacationId}>
+          {vacations.map(v => <div key={v.destinationId}>
             <CarouselNameItem vacation={v} />
           </div>)}
         </Carousel>

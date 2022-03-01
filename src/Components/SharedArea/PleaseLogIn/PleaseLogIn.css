@@ -1,0 +1,16 @@
+.PleaseLogIn > div {
+    width: 50%;
+    margin: auto;
+    font-size: 1.2em;
+    white-space: pre-line;
+    text-overflow: ellipsis;
+}
+
+.PleaseLogIn a {
+	font-size: 1.5em;
+    transition: all 250ms;
+}
+
+.PleaseLogIn a:hover {
+    font-size: 1.8em;
+}

@@ -11,6 +11,7 @@ import vacationsService from "../../../Services/VacationsService";
 import { vacationsStore } from "../../../Redux/Store";
 import { deleteVacationAction } from "../../../Redux/VacationsState";
 import { NavLink, useNavigate } from "react-router-dom";
+import notificationService from "../../../Services/NotificationService";
 
 interface VacationCardProps {
     vacation: VacationModel;
@@ -25,17 +26,17 @@ function VacationCard(props: VacationCardProps): JSX.Element {
         try{
             await vacationsService.deleteVacation(vacationId);
             vacationsStore.dispatch(deleteVacationAction(vacationId));
-            alert("Vacation has been deleted")
+            notificationService.success("Vacation has been deleted");
         }
         catch(err: any) {
-            alert(err.message)
+            notificationService.error(err);
         }
     }
 
     return (
         <div className="VacationCard">
             <div className="Image">
-                {props.vacation.imageName
+                {props.vacation?.imageName
                 &&
                 <img src={config.urls.images + props.vacation?.imageName} />
                 }
@@ -49,19 +50,19 @@ function VacationCard(props: VacationCardProps): JSX.Element {
                 <div className="Time">
                     <div>
                         <EventNoteIcon />
-                        <p>{new Date(props.vacation?.start).toLocaleString().split(",")[0]}</p>
+                        <p>{new Date(props.vacation?.start).toLocaleDateString('en-GB')}</p>
                     </div>
                     <div>
                         <EventNoteIcon />
-                        <p>{new Date(props.vacation?.end).toLocaleString().split(",")[0]}</p>
+                        <p>{new Date(props.vacation?.end).toLocaleDateString('en-GB')}</p>
                     </div>
                     <div>
                         <ScheduleIcon />
-                        <p>{new Date(props.vacation?.start).toLocaleString().split(",")[1]}</p>
+                        <p>{new Date(props.vacation?.start).toLocaleTimeString()}</p>
                     </div>
                     <div>
                         <ScheduleIcon />
-                        <p>{new Date(props.vacation?.end).toLocaleString().split(",")[1]}</p>
+                        <p>{new Date(props.vacation?.end).toLocaleTimeString()}</p>
                     </div>
                 </div>
                 <div className="LikeSection">

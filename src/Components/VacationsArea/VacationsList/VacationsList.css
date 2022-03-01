@@ -13,9 +13,24 @@
     width: 30%;
     flex-direction: column;
     align-items: center;
-    padding: 0;
+    /* padding: 0; */
 }
 
 .VacationsList > .VacationCard > div {
     width: 80%;
+}
+
+@media only screen and (max-width: 1000px){
+    .VacationsList > .VacationCard {
+        width: 90%;
+        /* flex-direction: row; */
+    }
+
+    .VacationsList > .VacationCard > div {
+        width: 60%;
+    }
+
+    .VacationsList > .VacationCard > div:nth-child(2) {
+        width: 90%;
+    }
 }

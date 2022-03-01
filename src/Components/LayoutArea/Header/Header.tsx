@@ -1,18 +1,18 @@
-import { InputAdornment, TextField } from "@mui/material";
 import "./Header.css";
-import SearchIcon from '@mui/icons-material/Search';
+import DestinationModel from "../../../Models/DestinationModel";
+import { useState } from "react";
+import SearchComponent from "../../SharedArea/SearchComponent/SearchComponent";
 
 
 function Header(): JSX.Element {
+
     return (
         <div className="Header">
-			<h1>WHERE YOU WANT TO GO?</h1>
-            <TextField variant="standard" className="InputBox" InputProps={{startAdornment: (
-                    <InputAdornment position="end">
-                        <SearchIcon className="SearchIcon" />
-                    </InputAdornment>
-                ),disableUnderline: true
-                }}/>
+            
+			<h1>WHERE DO YOU WANT TO GO?</h1>
+        
+            <SearchComponent uniqueID="header_" />
+        
         </div>
     );
 }

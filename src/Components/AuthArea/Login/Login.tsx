@@ -1,11 +1,19 @@
 import { Button, ButtonGroup, TextField } from "@mui/material";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import CredentialsModel from "../../../Models/CredentialsModel";
 import authService from "../../../Services/AuthService";
+import notificationService from "../../../Services/NotificationService";
 import "./Login.css";
 
 function Login(): JSX.Element {
+
+    const myRef = React.createRef<HTMLObjectElement>();
+
+    useEffect(() => {
+        myRef.current.scrollIntoView();
+    }, [])
 
     const {register, handleSubmit, formState, reset} = useForm<CredentialsModel>();
 
@@ -14,11 +22,11 @@ function Login(): JSX.Element {
     const submit = async (credentials: CredentialsModel) => {
         try{
             await authService.login(credentials);
-            alert("Login succeed");
+            notificationService.success("Login succeed");
             navigate("/home");
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }
 
@@ -28,7 +36,7 @@ function Login(): JSX.Element {
 
             <form onSubmit={handleSubmit(submit)}>
                 <TextField label="Username" {...register("username")} className="TextBox" />
-                <TextField label="Password" {...register("password")} className="TextBox" />
+                <TextField label="Password" type='password' {...register("password")} className="TextBox" />
                 <ButtonGroup className="TextBox">
                     <Button fullWidth type="submit" color="success" >Login</Button>
                     <Button fullWidth color="error" onClick={() => {
@@ -38,7 +46,14 @@ function Login(): JSX.Element {
                         })
                     }}>Clear</Button>
                 </ButtonGroup>
+                <div className="RegisterNow">
+                    <span>
+                        Dont have an account?
+                        <NavLink to="/register"> register now</NavLink>
+                    </span>
+                </div>
             </form>
+            <span ref={myRef}></span>
         </div>
     );
 }

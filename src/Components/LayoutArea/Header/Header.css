@@ -15,20 +15,28 @@
 
 .Header > h1 {
     color: var(--clr000);
-    font-size: 3em;
+    font-size: min(4vw, 3.5em);
     position: absolute;
     top: 25%;
     left: 50%;
     transform: translateX(-50%);
+    width: 100%;
 }
 
-.Header  .InputBox {
-    width: 30%;
-    transform: translateX(-50%);
-    background-color: var(--clr000);
-    border-radius: 25vh;
-    /* display: flex; */
-    position: absolute;
-    top: 40%;
-    left: 50%;
+.Header > .SearchComponent {
+    width: 170%;
+    position: relative;
+    bottom: 5%;
+}
+
+@media only screen and (max-width: 900px) {
+    .Header > .SearchComponent {
+        /* bottom: 0%; */
+        width: 80%;
+        left: 25%;
+    }
+
+    .Header > h1 {
+        font-size: 8vw;
+    }
 }

@@ -1,0 +1,17 @@
+.MustBeAdmin > div {
+    width: 50%;
+    margin: auto;
+    font-size: 1.2em;
+    white-space: pre-line;
+    text-overflow: ellipsis;
+}
+
+.MustBeAdmin a {
+	font-size: 1.5em;
+    transition: all 250ms;
+}
+
+.MustBeAdmin a:hover {
+    font-size: 1.8em;
+}
+

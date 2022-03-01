@@ -4,7 +4,8 @@ import VacationModel from '../Models/VacationModel';
 import config from '../Utils/Config';
 import { addVacationAction, deleteVacationAction, updateVacationAction } from '../Redux/VacationsState';
 import LikeModel from '../Models/LikeModel';
-import { dislikeAction, likeAction } from '../Redux/UserLikesState';
+import { getAllUserLikes } from '../Redux/UserLikesState';
+import likesService from './LikesService';
 
 class SocketIoService {
 
@@ -14,31 +15,35 @@ class SocketIoService {
         this.socket = io(config.urls.socketServer);
 
         this.socket.on("admin-add-vacation", (vacation: VacationModel) => {
-            vacationsStore.dispatch(addVacationAction(vacation));
-            console.log("admin added vacation");
-            
+            if(vacationsStore.getState().vacations){
+                vacationsStore.dispatch(addVacationAction(vacation));
+            }
         });
 
         this.socket.on("admin-update-vacation", (vacation: VacationModel) => {
-            vacationsStore.dispatch(updateVacationAction(vacation));
+            if(vacationsStore.getState().vacations){
+                vacationsStore.dispatch(updateVacationAction(vacation));
+            }
         });
 
         this.socket.on("admin-delete-vacation", (id: number) => {
             vacationsStore.dispatch(deleteVacationAction(id));
-            console.log("admin deleted vacation");
-
         });
 
-        this.socket.on("user-like-vacation", (like: LikeModel) => {
-            userLikesStore.dispatch(likeAction(like));
+        this.socket.on("user-like-vacation", async (like: LikeModel) => {
+            const userLikes = await likesService.getUserLikes();
+            userLikesStore.dispatch(getAllUserLikes(userLikes));
         })
 
-        this.socket.on("user-dislike-vacation", (like: LikeModel) => {
-            userLikesStore.dispatch(dislikeAction(like));
+        this.socket.on("user-dislike-vacation", async (like: LikeModel) => {
+            const userLikes = await likesService.getUserLikes();
+            userLikesStore.dispatch(getAllUserLikes(userLikes));
         })
 
         this.socket.on("vacation-likes-update", (vacation: VacationModel) => {
-            vacationsStore.dispatch(updateVacationAction(vacation));
+            if(vacationsStore.getState().vacations){
+                vacationsStore.dispatch(updateVacationAction(vacation));
+            }
         });
 
     }

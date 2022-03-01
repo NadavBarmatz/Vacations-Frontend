@@ -1,0 +1,46 @@
+@media only screen and (max-width: 900px){
+    /* Logos Queries */
+    .Footer .FooterLogo,
+    .Navbar .Logo {
+        width: 5%;
+    }
+
+    /* Navbar Queries */
+    .Navlinks .SearchComponent,
+    .Navbar .RegularNavbar{
+      display: none;
+    }
+    
+    .Navbar .MobileNavbar {
+      display: flex;
+    }
+
+    .Scrolled {
+        background-color: var(--clr600);
+    }
+
+    /* Home page queries */
+    .Home {
+        grid-template-rows: 0.3fr 1fr 0.1fr;
+    }
+
+    .NowOrNever .VacationCard {
+        width: 80%;
+        flex-direction: column;
+    }
+
+    .NowOrNever .VacationCard .Image,
+    .NowOrNever .VacationCard .Info {
+        width: 100%;
+    }
+
+    /* Form width query */
+    .UpdateVacation form,
+    .AddVacation form,
+    .Register form,
+    .Login form,
+    .ContactUs form {
+        width: 80vw;
+    }
+    
+}

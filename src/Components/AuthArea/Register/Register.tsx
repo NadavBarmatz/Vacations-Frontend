@@ -4,8 +4,17 @@ import "./Register.css";
 import UserModel from "../../../Models/UserModel";
 import { useNavigate } from "react-router-dom";
 import authService from "../../../Services/AuthService";
+import notificationService from "../../../Services/NotificationService";
+import { useEffect } from "react";
+import React from "react";
 
 function Register(): JSX.Element {
+
+    const myRef = React.createRef<HTMLObjectElement>();
+
+    useEffect(() => {
+        myRef.current.scrollIntoView();
+    }, [])
 
     const {register, handleSubmit, formState, reset} = useForm<UserModel>()
 
@@ -14,11 +23,11 @@ function Register(): JSX.Element {
     const submit = async (user: UserModel) => {
         try{
             await authService.register(user);
-            alert("Registration succeed");
+            notificationService.success("Registration succeed");
             navigate("/home");
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }
 
@@ -33,7 +42,7 @@ function Register(): JSX.Element {
                 
                 <TextField label="Username" {...register("username")} className="TextBox" />
                 
-                <TextField label="Password" {...register("password")} className="TextBox" />
+                <TextField label="Password" type='password' {...register("password")} className="TextBox" />
                 
                 <ButtonGroup className="TextBox">
                     <Button fullWidth type="submit" color="success">Register</Button>
@@ -47,6 +56,7 @@ function Register(): JSX.Element {
                     }}>Clear</Button>
                 </ButtonGroup>
             </form>
+            <span ref={myRef}></span>
         </div>
     );
 }

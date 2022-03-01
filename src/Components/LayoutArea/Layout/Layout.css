@@ -17,10 +17,6 @@
     top: -5vh;
 }
 
-.Layout > section {
-    grid-column: span 1;
-}
-
 .Layout > footer {
     padding: 2%;
 }

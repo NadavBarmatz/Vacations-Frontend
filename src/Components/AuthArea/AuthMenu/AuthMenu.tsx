@@ -1,10 +1,12 @@
-import { Thermostat } from "@mui/icons-material";
+import PersonIcon from '@mui/icons-material/Person';
 import { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { Unsubscribe } from "redux";
 import Role from "../../../Models/Role";
 import UserModel from "../../../Models/UserModel";
 import { authStore } from "../../../Redux/Store";
+import authService from '../../../Services/AuthService';
+import AdminActions from "../AdminActions/AdminActions";
 import "./AuthMenu.css";
 
 interface AuthMenuState {
@@ -32,30 +34,29 @@ class AuthMenu extends Component<{}, AuthMenuState> {
         return (
             <div className="AuthMenu">
 
-                {!this.state?.user &&
-                    <>
+                {!authService.isLoggedIn() &&
+                    <div>
                         <span>Hello Guest</span>
                         <span> | </span>
                         <NavLink to="/login">Login</NavLink>
                         <span> | </span>
                         <NavLink to="/register">Register</NavLink>
-                    </>
+                    </div>
                 }
 
-                {this.state?.user &&
-                    <>
-                        <span>Hello {this.state.user.username}</span>
+                {authService.isLoggedIn() &&
+                    <div>
+                        <span>Hello {this.state?.user?.username}</span>
                         <span> | </span>
                         <NavLink to="logout">Logout</NavLink>
-                    </>
+                    </div>
                 }
 
-                {this.state?.user?.role === Role.Admin &&
-                    <>
-                    <br />
-                        <NavLink to="add-vacation">Add Vacation</NavLink>
-                    </>
-                }				
+                {authService.isAdmin() &&
+                    <AdminActions />
+                }
+            <PersonIcon className="AuthIcon" onClick={() => {console.log("clicked")}} />
+
             </div>
         );
     }

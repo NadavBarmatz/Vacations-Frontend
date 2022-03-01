@@ -6,8 +6,13 @@
     color: var(--clr600);
 }
 
-.CarouselItem > a > span {
+.CarouselItem span {
     color: var(--clr600);
+    font-weight: 500;
+}
+
+.CarouselItem p {
+    font-weight: 800;
 }
 
 .CarouselItem img {
@@ -20,11 +25,11 @@
     display: flex;
     align-items: center;
     background-color: var(--clr400);
-    height: 10%;
+    height: 15%;
     left: 0;
     right: 0;
     bottom: 13%;
-    padding: 2%;
+    /* padding: 2%; */
 }
 
 .CarouselItem .Country {
@@ -35,10 +40,12 @@
     flex: 1;
 }
 
-.Description h3 {
-    font-weight: 400;
-}
-
 .CarouselItem .Price {
     font-weight: 600;
+}
+
+@media only screen and (max-width: 1250px){
+    .CarouselItem .LikeAndCart svg {
+        font-size: 1.2em;
+    }
 }

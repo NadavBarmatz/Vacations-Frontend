@@ -1,7 +1,9 @@
 class Config{
     public urls = {
         vacations: "",
+        vacationsByDestination: "",
         destinations: "",
+        autoComplete: "",
         images: "",
         register: "",
         login: "",
@@ -14,7 +16,9 @@ class Config{
     public constructor(baseUrl: string){
         this.urls = {
             vacations: baseUrl + "vacations/",
+            vacationsByDestination: baseUrl + "vacations/by-destination/",
             destinations: baseUrl + "destinations/",
+            autoComplete: baseUrl + "auto-complete/",
             images: baseUrl + "vacations/images/",
             register: baseUrl + "auth/register/",
             login: baseUrl + "auth/login/",

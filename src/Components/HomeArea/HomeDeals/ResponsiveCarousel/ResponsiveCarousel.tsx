@@ -36,31 +36,35 @@ function ResponsiveCarousel(): JSX.Element {
 
   let unSub: Unsubscribe;
 
-  useEffect((async () => {
+  useEffect(() => {
 
-    let vacations = vacationsStore.getState().vacations;
-    if(!vacations){
-      vacations = await vacationsService.getAllVacations();
-    }
-    const bestVacations = vacations?.filter(v => v.price <= 150)
-    const vacationsIdArr = bestVacations?.map(v => v.vacationId);
-    setVacationsId(vacationsIdArr);
+    (async()=>{
 
-    unSub = vacationsStore.subscribe(() => {
-      vacations = vacationsStore.getState().vacations;
-      const bestVacations = vacations.filter(v => v.price <= 150)
-      const vacationsIdArr = bestVacations.map(v => v.vacationId);
+      let vacations = vacationsStore.getState().vacations;
+      if (!vacations) {
+        vacations = await vacationsService.getAllVacations();
+      }
+      const bestVacations = vacations?.filter(v => v.price <= 115);
+      const vacationsIdArr = bestVacations?.map(v => v.vacationId);
       setVacationsId(vacationsIdArr);
-    })
+  
+      unSub = vacationsStore.subscribe(() => {
+        vacations = vacationsStore.getState().vacations;
+        const bestVacations = vacations.filter(v => v.price <= 115)
+        const vacationsIdArr = bestVacations.map(v => v.vacationId);
+        setVacationsId(vacationsIdArr);
+      });
 
-    return () => {unSub();}
-  }) as any, [])
-    
+    })();
+
+    return () => { unSub(); }
+  }, [])
+
   return (
     <div className="ResponsiveCarousel">
       {
         vacationsId?.length === 0 && <Loading />
-          ||
+        ||
         <Carousel infinite={true} responsive={responsive}>
           {vacationsId?.map(v => <div key={v}>
             <CarouselItem vacationId={v} />

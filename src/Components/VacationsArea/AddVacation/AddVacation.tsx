@@ -1,20 +1,27 @@
 import { Button, ButtonGroup, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import React from "react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import DestinationModel from "../../../Models/DestinationModel";
 import VacationModel from "../../../Models/VacationModel";
+import destinationsService from "../../../Services/DestinationsService";
+import formService from "../../../Services/FormService";
+import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
 import "./AddVacation.css";
 
 function AddVacation(): JSX.Element {
+
+    const myRef = React.createRef<HTMLFormElement>();
+
 
     // Used to set select options and value:
     const [destinations, setDestinations] = useState<DestinationModel[]>([]);
     const [selectValue, setSelectValue] = useState<string>("");
 
     // Used to validate meeting end time is not before start time:
-    const [startTime, setStartTime] = useState<string>("");
+    const [endTime, setEndTime] = useState<string>("");
 
     const {register, handleSubmit, reset, formState} = useForm<VacationModel>();
 
@@ -22,47 +29,43 @@ function AddVacation(): JSX.Element {
 
     useEffect((async () => {
         try {
-            // Get destination from srvr:
-            const destinationsArr = await vacationsService.getAllDestinations();
+            myRef.current.scrollIntoView();
+            // Get destination from server:
+            const destinationsArr = await destinationsService.getAllDestinations();
             // Sort by alphabet order:
             destinationsArr.sort((a, b) => a.destinationCountry < b.destinationCountry ? -1 : 1)
             setDestinations(destinationsArr);
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }) as any, [])
 
     // Minimum value for dateTime inputs
-    const dateTimeMinValue = (new Date().toISOString().split(".")[0]).substring(0, 16);
+    const dateTimeMinValue = formService.dateTimeMinValue;
 
     const submit = async (vacation: VacationModel) => {
         try{
             await vacationsService.addVacation(vacation);
-            alert("Vacation has been added by admin");
+            notificationService.success("Vacation has been added by admin");
             navigate("/deals");
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
 
     }
 
-    const handleSelectChange = (e: SyntheticEvent) => {
-        setSelectValue((e.target as HTMLOptionElement).value);
-    }
+    const handleSelectChange = (e: SyntheticEvent) => formService.handleSelectChange(e, setSelectValue);
 
     // Function that make sure end cannot be b4 start time:
-    const setEndValidation = (e: SyntheticEvent) => {
-        const time = (e.target as HTMLInputElement).value;
-        setStartTime(time);        
-    }
+    const setEndValidation = (e: SyntheticEvent) => formService.handleEndTimeValidation(e, setEndTime);
 
     return (
         <div className="AddVacation">
             
             <h2>Add New Vacation</h2>
-            <form onSubmit={handleSubmit(submit)}>
+            <form ref={myRef} onSubmit={handleSubmit(submit)}>
 
                 <FormControl fullWidth>
                     <InputLabel>Destination</InputLabel>
@@ -87,7 +90,7 @@ function AddVacation(): JSX.Element {
                 })} />
                 <span>{formState.errors.start?.message}</span>
 
-                <TextField type="datetime-local" inputProps={{min: startTime ? startTime : dateTimeMinValue}} label="End" className="TextBox" {...register("end",{
+                <TextField type="datetime-local" inputProps={{min: endTime ? endTime : dateTimeMinValue}} label="End" className="TextBox" {...register("end",{
                     required: {value: true, message: "Filed is required"},
                 })} />
                 <span>{formState.errors.end?.message}</span>
@@ -111,7 +114,7 @@ function AddVacation(): JSX.Element {
                     }}>CLEAR</Button>
                 </ButtonGroup>
             </form>
-			
+
         </div>
     );
 }

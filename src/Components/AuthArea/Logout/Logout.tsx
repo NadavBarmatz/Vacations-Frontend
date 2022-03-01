@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import authService from "../../../Services/AuthService";
+import notificationService from "../../../Services/NotificationService";
 
 function Logout(): JSX.Element {
 
@@ -8,7 +9,7 @@ function Logout(): JSX.Element {
 
     useEffect(() => {
         authService.logout();
-        alert("Logout succeed");
+        notificationService.success("Logout succeed");
         navigate("/home");
     }, []);
 

@@ -5,6 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import DestinationModel from "../../../Models/DestinationModel";
 import VacationModel from "../../../Models/VacationModel";
 import { vacationsStore } from "../../../Redux/Store";
+import destinationsService from "../../../Services/DestinationsService";
+import formService from "../../../Services/FormService";
+import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
 import "./UpdateVacation.css";
 
@@ -14,50 +17,64 @@ function UpdateVacation(): JSX.Element {
 
     // Used to set select options and value:
     const [destinations, setDestinations] = useState<DestinationModel[]>([]);
-    const [selectValue, setSelectValue] = useState<string>("");
+    // especially for the UI
+    const [selectValue, setSelectValue] = useState<number>(0);
 
     // Used to validate meeting end time is not before start time:
-    const [startTime, setStartTime] = useState<string>("");
+    const [endTime, setEndTime] = useState<string>("");
 
-    const {register, handleSubmit, reset, formState} = useForm<VacationModel>();
+    const {register, handleSubmit, reset, formState, setValue} = useForm<VacationModel>();
 
     const navigate = useNavigate(); 
 
     useEffect((async () => {
         try {
-            // Get destination from srvr:
-            const destinationsArr = await vacationsService.getAllDestinations();
+
+            let currentVacation = vacationsStore.getState().vacations?.find(v => v.vacationId === id);
+            if (!currentVacation){
+                currentVacation = await vacationsService.getOneVacation(id);
+            }
+
+            // setting the values of the form with data from the server:
+            setValue("description", currentVacation.description);
+            // Substring to match the date-time input format:
+            setValue("start", currentVacation.start.substring(0, 16));
+            // Substring to match the date-time input format:
+            setValue("end", currentVacation.end.substring(0, 16));
+            setValue("price", currentVacation.price);
+            setValue("destinationId", currentVacation.destinationId)
+
+            // for the select input UI
+            setSelectValue(currentVacation.destinationId);
+
+            // Get destination from server:
+            const destinationsArr = await destinationsService.getAllDestinations();
             // Sort by alphabet order:
             destinationsArr.sort((a, b) => a.destinationCountry < b.destinationCountry ? -1 : 1);
             setDestinations(destinationsArr);
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }) as any, [])
 
     // Minimum value for dateTime inputs
-    const dateTimeMinValue = (new Date().toISOString().split(".")[0]).substring(0, 16);
+    const dateTimeMinValue = formService.dateTimeMinValue;
 
-    const handleSelectChange = (e: SyntheticEvent) => {
-        setSelectValue((e.target as HTMLOptionElement).value);
-    }
+    const handleSelectChange = (e: SyntheticEvent) => formService.handleSelectChange(e, setSelectValue)
 
     // Function that make sure end cannot be b4 start time:
-    const setEndValidation = (e: SyntheticEvent) => {
-        const time = (e.target as HTMLInputElement).value;
-        setStartTime(time);        
-    }
+    const setEndValidation = (e: SyntheticEvent) => formService.handleEndTimeValidation(e, setEndTime);
 
     async function submit(vacation: VacationModel) {
         try{
             vacation.vacationId = id;
             await vacationsService.fullUpdateVacation(vacation);
-            alert("Vacation updated by Admin");
+            notificationService.success("Vacation updated by Admin");
             navigate("/deals");
         }
         catch(err: any) {
-            alert(err.message);
+            notificationService.error(err);
         }
     }
 
@@ -69,7 +86,7 @@ function UpdateVacation(): JSX.Element {
 
             <FormControl fullWidth>
                     <InputLabel>Destination</InputLabel>
-                    <Select label="Destination" defaultValue={selectValue} onChange={handleSelectChange} {...register("destinationId", {
+                    <Select label="Destination" value={selectValue} onChange={handleSelectChange} {...register("destinationId", {
                         required: {value: true, message: "Filed is required"},
                     })}>
                         {destinations.map(d => <MenuItem key={d.destinationId} value={d.destinationId}>{d.destinationCountry}, {d.destinationCity}</MenuItem>)}
@@ -90,7 +107,7 @@ function UpdateVacation(): JSX.Element {
                 })} />
                 <span>{formState.errors.start?.message}</span>
 
-                <TextField type="datetime-local" inputProps={{min: startTime ? startTime : dateTimeMinValue}} label="End" className="TextBox" {...register("end",{
+                <TextField type="datetime-local" inputProps={{min: endTime ? endTime : dateTimeMinValue}} label="End" className="TextBox" {...register("end",{
                     required: {value: true, message: "Filed is required"},
                 })} />
                 <span>{formState.errors.end?.message}</span>

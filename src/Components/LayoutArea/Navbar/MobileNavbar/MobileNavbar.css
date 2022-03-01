@@ -1,0 +1,41 @@
+.MobileNavbar {
+    display: none;
+    position: absolute;
+	width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.MobileNavbar > div {
+    width: 100%;
+}
+
+.MobileNavbar .Logo {
+    position: absolute;
+    left: 5px;
+}
+
+.MobileNavbar .Links {
+    flex-direction: column;
+    gap: 25px;
+    position: absolute;
+    top: 85%;
+    left: -10px;
+    width: 101%;
+    background-color: var(--clr600);
+}
+
+.MobileNavbar .LeftNavSide {
+    right: 20%;
+}
+
+.MobileNavbar .AuthMenu {
+    position: relative;
+    margin: auto;
+}
+
+.MobileNavbar .Hamburger{
+    position: absolute;
+    right: 5%;
+}
