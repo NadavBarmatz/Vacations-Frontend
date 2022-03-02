@@ -33,7 +33,7 @@ function SearchComponent(props: SearchComponentProps): JSX.Element {
     const searchVacation = async (e: SyntheticEvent) => {
         try{
             // Execute on "Enter" key down or clicking on the search icon:
-            if((e as any).keyCode === 13 || e.type === "click"){
+            if((e as any).keyCode === 13 || e.type === "click" || (e as any).key === "Unidentified"){
                 
                 // If destinations is empty, meaning there are no matches, throw Error message:
                 if(destinations.length === 0) throw new Error("Invalid search, or the required destination is not available.");
@@ -56,7 +56,7 @@ function SearchComponent(props: SearchComponentProps): JSX.Element {
 			 <SearchIcon onClick={searchVacation} />
                 <input type="text" list={props.uniqueID} ref={inputRef} onChange={autoComplete} autoComplete="off" onKeyDown={searchVacation} />
                 <datalist id={props.uniqueID}>
-                    { destinations?.map(d => <option key={d.destinationId} value={`${d.destinationCity}, ${d.destinationCountry}`} />)}
+                    { destinations?.map(d => <option onClick={searchVacation} key={d.destinationId} value={`${d.destinationCity}, ${d.destinationCountry}`} />)}
                 </datalist>
         </div>
     );

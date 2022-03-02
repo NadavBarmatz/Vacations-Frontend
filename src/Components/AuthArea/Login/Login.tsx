@@ -35,8 +35,19 @@ function Login(): JSX.Element {
 			<h2>Login</h2>
 
             <form onSubmit={handleSubmit(submit)}>
-                <TextField label="Username" {...register("username")} className="TextBox" />
-                <TextField label="Password" type='password' {...register("password")} className="TextBox" />
+                <TextField label="Username" {...register("username", {
+                    required: {value: true, message: "Field is required"},
+                    minLength: {value: 2, message: "Username must contain minimum 2 chars"}
+
+                })} className="TextBox" />
+                <span>{formState.errors.username?.message}</span>
+
+                <TextField label="Password" type='password' {...register("password", {
+                    required: {value: true, message: "Field is required"},
+                    minLength: {value: 4, message: "Password must contain minimum 4 chars"}
+                })} className="TextBox" />
+                <span>{formState.errors.password?.message}</span>
+
                 <ButtonGroup className="TextBox">
                     <Button fullWidth type="submit" color="success" >Login</Button>
                     <Button fullWidth color="error" onClick={() => {

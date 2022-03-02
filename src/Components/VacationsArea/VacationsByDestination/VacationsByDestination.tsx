@@ -58,7 +58,9 @@ function VacationsByDestination(): JSX.Element {
         const unSubDestinations = destinationStore.subscribe(async () => {
             destinationId = destinationStore.getState().destinationId;
             let vacationsArr = await vacationsService.getAllVacationsByDestinationId(destinationId);
+            let destination = await destinationsService.getOneDestination(destinationId);
             setVacationsByDestination(vacationsArr);
+            setDestination(destination);
         })
 
         return () => { 

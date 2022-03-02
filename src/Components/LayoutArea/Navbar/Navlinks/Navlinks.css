@@ -25,9 +25,11 @@
 }
 
 .Navlinks .SearchComponent {
-    /* position: relative; */
-    width: 30%;
-    /* left: 35vw; */
+    width: 45%;
+}
+
+.Navlinks .SearchComponent input {
+    font-size: 1em;
 }
 
 .Navlinks .LeftNavSide {

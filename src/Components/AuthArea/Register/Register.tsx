@@ -36,13 +36,36 @@ function Register(): JSX.Element {
 			<h2>Register</h2>
 
             <form onSubmit={handleSubmit(submit)}>
-                <TextField label="First Name" {...register("firstName")} className="TextBox" />
+                <TextField label="First Name" {...register("firstName", {
+                    required: {value: true, message: "Field is required"},
+                    minLength: {value: 4, message: "First name must be 4-20 chars"},
+                    maxLength: {value: 20, message: "First name must be 4-20 chars"}
+                })} className="TextBox" />
+                <span>{formState.errors.firstName?.message}</span>
                 
-                <TextField label="Last Name" {...register("lastName")} className="TextBox" />
+                <TextField label="Last Name" {...register("lastName",{
+                    required: {value: true, message: "Field is required"},
+                    minLength: {value: 4, message: "Last name must be 4-30 chars"},
+                    maxLength: {value: 30, message: "Last name must be 4-30 chars"}
+                })} className="TextBox" />
+                <span>{formState.errors.lastName?.message}</span>
+
                 
-                <TextField label="Username" {...register("username")} className="TextBox" />
+                <TextField label="Username" {...register("username", {
+                    required: {value: true, message: "Field is required"},
+                    minLength: {value: 2, message: "Username must be 2-20 chars"},
+                    maxLength: {value: 20, message: "Username must be 2-20 chars"}
+                })} className="TextBox" />
+                <span>{formState.errors.username?.message}</span>
+
                 
-                <TextField label="Password" type='password' {...register("password")} className="TextBox" />
+                <TextField label="Password" type='password' {...register("password", {
+                    required: {value: true, message: "Field is required"},
+                    minLength: {value: 4, message: "Password must be 4-12 chars"},
+                    maxLength: {value: 12, message: "Password must be 4-12 chars"}
+                })} className="TextBox" />
+                <span>{formState.errors.password?.message}</span>
+
                 
                 <ButtonGroup className="TextBox">
                     <Button fullWidth type="submit" color="success">Register</Button>
