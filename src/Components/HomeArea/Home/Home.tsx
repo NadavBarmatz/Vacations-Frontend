@@ -1,8 +1,5 @@
-import { useEffect, useState } from "react";
-import { Unsubscribe } from "redux";
-import VacationModel from "../../../Models/VacationModel";
+import { useEffect } from "react";
 import { userLikesStore, vacationsStore } from "../../../Redux/Store";
-import { getAllUserLikes } from "../../../Redux/UserLikesState";
 import { getVacationsAction } from "../../../Redux/VacationsState";
 import authService from "../../../Services/AuthService";
 import likesService from "../../../Services/LikesService";

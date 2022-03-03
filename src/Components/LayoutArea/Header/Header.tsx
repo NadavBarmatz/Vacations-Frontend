@@ -1,6 +1,4 @@
 import "./Header.css";
-import DestinationModel from "../../../Models/DestinationModel";
-import { useState } from "react";
 import SearchComponent from "../../SharedArea/SearchComponent/SearchComponent";
 
 

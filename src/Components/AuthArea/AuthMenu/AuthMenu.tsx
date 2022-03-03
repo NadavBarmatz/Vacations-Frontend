@@ -1,11 +1,9 @@
-import PersonIcon from '@mui/icons-material/Person';
 import { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { Unsubscribe } from "redux";
 import UserModel from "../../../Models/UserModel";
 import { authStore } from "../../../Redux/Store";
 import authService from '../../../Services/AuthService';
-import AdminActions from "../AdminActions/AdminActions";
 import "./AuthMenu.css";
 
 interface AuthMenuState {

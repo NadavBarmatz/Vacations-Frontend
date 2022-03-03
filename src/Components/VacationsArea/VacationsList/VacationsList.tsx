@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Unsubscribe } from "redux";
-import UserModel from "../../../Models/UserModel";
 import VacationModel from "../../../Models/VacationModel";
 import { authStore, userLikesStore, vacationsStore } from "../../../Redux/Store";
 import { getAllUserLikes } from "../../../Redux/UserLikesState";

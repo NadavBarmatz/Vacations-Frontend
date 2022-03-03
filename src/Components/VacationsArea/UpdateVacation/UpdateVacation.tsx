@@ -58,9 +58,6 @@ function UpdateVacation(): JSX.Element {
         }
     }) as any, [])
 
-    // // Minimum value for dateTime inputs
-    // const dateTimeMinValue = formService.dateTimeMinValue;
-
     const handleSelectChange = (e: SyntheticEvent) => formService.handleSelectChange(e, setSelectValue)
 
     // Function that make sure end cannot be b4 start time:

@@ -11,9 +11,9 @@ import VacationModel from "../../../../Models/VacationModel";
 
 function ResponsiveCarousel(): JSX.Element {
 
+  // In use for the carousel library:
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 3
     },
@@ -39,17 +39,22 @@ function ResponsiveCarousel(): JSX.Element {
   useEffect(() => {
 
     (async()=>{
-
+      // check for vacations in redux:
       vacations = vacationsStore.getState().vacations;
+      // If not in redux:
       if (!vacations) {
         vacations = await vacationsService.getAllVacations();
       }
+      // Filter vacations by price <= 115: 
       const bestVacations = vacations?.filter(v => v.price <= 115);
+
+      // Map destination id after filtering to new array to send to carousel items:
       const vacationsIdArr = bestVacations?.map(v => v.vacationId);
       setVacationsId(vacationsIdArr);
 
     })();
 
+    // Listen to changes to update GUI
     unSub = vacationsStore.subscribe(() => {
       vacations = vacationsStore.getState().vacations;
       const bestVacations = vacations?.filter(v => v.price <= 115);

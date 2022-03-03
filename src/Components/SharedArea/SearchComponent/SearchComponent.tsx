@@ -1,4 +1,4 @@
-import { createRef, SyntheticEvent, useRef, useState } from "react";
+import { SyntheticEvent, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DestinationModel from "../../../Models/DestinationModel";
 import autoSearchService from "../../../Services/autoSearchService";

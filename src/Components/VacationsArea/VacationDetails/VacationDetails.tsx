@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import VacationModel from "../../../Models/VacationModel";
 import { authStore, vacationsStore, userLikesStore } from "../../../Redux/Store";
 import { getAllUserLikes } from "../../../Redux/UserLikesState";
-import { addVacationAction, getVacationsAction } from "../../../Redux/VacationsState";
+import { getVacationsAction } from "../../../Redux/VacationsState";
 import likesService from "../../../Services/LikesService";
 import notificationService from "../../../Services/NotificationService";
 import vacationsService from "../../../Services/VacationsService";
