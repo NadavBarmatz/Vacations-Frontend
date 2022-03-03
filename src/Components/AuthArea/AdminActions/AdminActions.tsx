@@ -6,7 +6,7 @@ function AdminActions(): JSX.Element {
     return (
         <div className="AdminActions">
 			<Select defaultValue={0}>
-                <MenuItem value={0}>
+                <MenuItem disabled value={0}>
                     Admin Actions
                 </MenuItem>
                 <MenuItem value={1}>

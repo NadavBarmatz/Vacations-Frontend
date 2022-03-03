@@ -3,6 +3,11 @@
 	align-items: center;
 }
 
+.AuthMenu > svg {
+	position: relative;
+	
+}
+
 .AuthMenu ul > li {
 	color: white;
 }

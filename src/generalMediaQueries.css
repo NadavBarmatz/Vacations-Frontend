@@ -2,7 +2,7 @@
     /* Logos Queries */
     .Footer .FooterLogo,
     .Navbar .Logo {
-        width: 5%;
+        width: max(5%, 35px);
     }
 
     /* Navbar Queries */

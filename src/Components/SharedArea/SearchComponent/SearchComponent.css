@@ -21,3 +21,7 @@
     padding: 10px;
     top: -2px;
 }
+
+.SearchComponent > svg:hover {
+    cursor: pointer;
+}

@@ -9,7 +9,7 @@ function Footer(): JSX.Element {
                 <img src={FooterLogo} />
             </div>
             <div className="Links">
-                <NavLink to="/booking">BOOK A FLY</NavLink>
+                <NavLink to="/home">HOME</NavLink>
                 <NavLink to="/deals">DEALS</NavLink>
                 <NavLink to="/contact">CONTACT</NavLink>
             </div>

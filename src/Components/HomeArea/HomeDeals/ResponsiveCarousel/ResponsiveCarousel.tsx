@@ -2,13 +2,12 @@ import "./ResponsiveCarousel.css";
 import Carousel from "react-multi-carousel";
 import 'react-multi-carousel/lib/styles.css';
 import { useEffect, useState } from "react";
-import VacationModel from "../../../../Models/VacationModel";
 import vacationsService from "../../../../Services/VacationsService";
 import CarouselItem from "../CarouselItem/CarouselItem";
-import config from "../../../../Utils/Config";
 import Loading from "../../../SharedArea/Loading/Loading";
 import { vacationsStore } from "../../../../Redux/Store";
 import { Unsubscribe } from "redux";
+import VacationModel from "../../../../Models/VacationModel";
 
 function ResponsiveCarousel(): JSX.Element {
 
@@ -35,27 +34,28 @@ function ResponsiveCarousel(): JSX.Element {
   const [vacationsId, setVacationsId] = useState<number[]>([]);
 
   let unSub: Unsubscribe;
+  let vacations: VacationModel[];
 
   useEffect(() => {
 
     (async()=>{
 
-      let vacations = vacationsStore.getState().vacations;
+      vacations = vacationsStore.getState().vacations;
       if (!vacations) {
         vacations = await vacationsService.getAllVacations();
       }
       const bestVacations = vacations?.filter(v => v.price <= 115);
       const vacationsIdArr = bestVacations?.map(v => v.vacationId);
       setVacationsId(vacationsIdArr);
-  
-      unSub = vacationsStore.subscribe(() => {
-        vacations = vacationsStore.getState().vacations;
-        const bestVacations = vacations.filter(v => v.price <= 115)
-        const vacationsIdArr = bestVacations.map(v => v.vacationId);
-        setVacationsId(vacationsIdArr);
-      });
 
     })();
+
+    unSub = vacationsStore.subscribe(() => {
+      vacations = vacationsStore.getState().vacations;
+      const bestVacations = vacations?.filter(v => v.price <= 115);
+      const vacationsIdArr = bestVacations?.map(v => v.vacationId);
+      setVacationsId(vacationsIdArr);
+    });
 
     return () => { unSub(); }
   }, [])

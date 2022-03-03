@@ -33,7 +33,7 @@ function SearchComponent(props: SearchComponentProps): JSX.Element {
     const searchVacation = async (e: SyntheticEvent) => {
         try{
             // Execute on "Enter" key down or clicking on the search icon:
-            if((e as any).keyCode === 13 || e.type === "click" || (e as any).key === "Unidentified"){
+            if((e as any).keyCode === 13 || e.type === "click"){
                 
                 // If destinations is empty, meaning there are no matches, throw Error message:
                 if(destinations.length === 0) throw new Error("Invalid search, or the required destination is not available.");

@@ -2,7 +2,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { Unsubscribe } from "redux";
-import Role from "../../../Models/Role";
 import UserModel from "../../../Models/UserModel";
 import { authStore } from "../../../Redux/Store";
 import authService from '../../../Services/AuthService';
@@ -51,11 +50,6 @@ class AuthMenu extends Component<{}, AuthMenuState> {
                         <NavLink to="logout">Logout</NavLink>
                     </div>
                 }
-
-                {authService.isAdmin() &&
-                    <AdminActions />
-                }
-            <PersonIcon className="AuthIcon" onClick={() => {console.log("clicked")}} />
 
             </div>
         );

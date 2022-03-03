@@ -58,8 +58,8 @@ function UpdateVacation(): JSX.Element {
         }
     }) as any, [])
 
-    // Minimum value for dateTime inputs
-    const dateTimeMinValue = formService.dateTimeMinValue;
+    // // Minimum value for dateTime inputs
+    // const dateTimeMinValue = formService.dateTimeMinValue;
 
     const handleSelectChange = (e: SyntheticEvent) => formService.handleSelectChange(e, setSelectValue)
 
@@ -102,12 +102,12 @@ function UpdateVacation(): JSX.Element {
                 })} />
                 <span>{formState.errors.description?.message}</span>
 
-                <TextField type="datetime-local" inputProps={{min: dateTimeMinValue, onInput: setEndValidation}} label="Start" className="TextBox" {...register("start",{
+                <TextField type="datetime-local" inputProps={{ onInput: setEndValidation}} label="Start" className="TextBox" {...register("start",{
                     required: {value: true, message: "Filed is required"},
                 })} />
                 <span>{formState.errors.start?.message}</span>
 
-                <TextField type="datetime-local" inputProps={{min: endTime ? endTime : dateTimeMinValue}} label="End" className="TextBox" {...register("end",{
+                <TextField type="datetime-local" inputProps={{min: endTime ? endTime : null}} label="End" className="TextBox" {...register("end",{
                     required: {value: true, message: "Filed is required"},
                 })} />
                 <span>{formState.errors.end?.message}</span>

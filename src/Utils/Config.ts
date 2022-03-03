@@ -38,7 +38,7 @@ class DevelopmentConfig extends Config{
 
 class ProductionConfig extends Config{
     public constructor(){
-        super("https://fly-company.herokuapp.com/api");
+        super("https://fly-now.herokuapp.com/api/");
     };
 }
 

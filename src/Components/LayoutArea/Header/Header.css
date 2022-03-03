@@ -31,12 +31,13 @@
 
 @media only screen and (max-width: 900px) {
     .Header > .SearchComponent {
-        /* bottom: 0%; */
+        top: 12vw;
         width: 80%;
         left: 25%;
     }
 
     .Header > h1 {
-        font-size: 8vw;
+        font-size: max(8vw, 2.3em);
+        /* font-size: 8vw; */
     }
 }
